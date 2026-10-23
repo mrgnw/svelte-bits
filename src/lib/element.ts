@@ -1,1 +1,3 @@
-import './SectionNav.svelte';
+import SectionNav from './SectionNav.svelte';
+
+export default SectionNav;
