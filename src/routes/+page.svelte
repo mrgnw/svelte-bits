@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionNav, { type Section } from '$lib';
+	import SectionNav, { type Section } from '#lib';
 
 	const sections: Section[] = [
 		{ id: 'basics', title: 'Basics', group: true },
