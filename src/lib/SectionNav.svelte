@@ -307,13 +307,13 @@
 	}
 
 	@media (width >= 64rem) {
-		.grid {
+		.layout {
 			display: grid;
 			grid-template-columns: var(--nav-width, 13rem) minmax(0, 1fr);
 			column-gap: 2.5rem;
 		}
 
-		.grid.collapsed {
+		.layout.collapsed {
 			grid-template-columns: 1.5rem minmax(0, 1fr);
 			column-gap: 1rem;
 		}
