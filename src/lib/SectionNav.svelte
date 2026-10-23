@@ -131,7 +131,7 @@
 	});
 </script>
 
-<svelte:window {onscroll} />
+<svelte:window {onscroll} onresize={onscroll} />
 <svelte:document {onkeydown} />
 
 <div class="grid" class:collapsed>
