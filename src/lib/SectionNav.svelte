@@ -134,7 +134,7 @@
 <svelte:window {onscroll} onresize={onscroll} />
 <svelte:document {onkeydown} />
 
-<div class="grid" class:collapsed>
+<div class="layout" class:collapsed>
 	<div class="side">
 		<button
 			class="handle"
