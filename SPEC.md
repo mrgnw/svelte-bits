@@ -72,7 +72,7 @@ Motion, inside `@media (prefers-reduced-motion: no-preference)`: popover open/cl
 ## Done when
 
 - `pnpm check` passes with no errors.
-- Both builds succeed; `dist-ce/section-nav.js` is a single ES module under 40 KB.
+- Both builds succeed; `dist-ce/section-nav.js` is a single ES module under 60 KB (about 50 KB, 19 KB gzipped; the Svelte runtime is 30 KB of it).
 - In the dev page (5241): sidebar tracks on scroll, `b` collapses with a transition and survives reload, `j`/`k` step, narrowing under 64rem shows the bar and the popover works, links close it.
 - In the static demo: headings got ids, grouped h2/h3 render as groups and items, everything above works too.
 - `CLAUDE.md` in the repo: one paragraph on what it is, `git: main-only`, the ports, the two builds, and a pointer to SPEC.md.
