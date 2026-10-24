@@ -19,7 +19,7 @@ Custom element options live in a thin wrapper, `src/lib/SectionNavElement.svelte
 ## Markup
 
 ```svelte
-<div class="grid" class:collapsed>
+<div class="layout" class:collapsed>
 	<div class="side">
 		<button class="handle" aria-expanded={!collapsed} aria-controls="sections-nav" aria-keyshortcuts="b" aria-label={label} title="{label} (b)" onclick={toggle}>sidebar icon svg</button>
 		<button class="bar" popovertarget="sections-nav"><span class="now">{current item title or label}</span><span aria-hidden="true">▾</span></button>
@@ -27,11 +27,11 @@ Custom element options live in a thin wrapper, `src/lib/SectionNavElement.svelte
 			per group: optional <a class="group" href="#id">, then <ul><li><a href="#id" aria-current="location" when current>
 		</nav>
 	</div>
-	<div class="content" bind:this={content}><slot /></div>
+	<div class="content" bind:this={content}>{@render children?.()}</div>
 </div>
 ```
 
-Use `<slot />`, not `{@render children()}`: it is what the custom element needs, and in Svelte 5 it also renders the `children` snippet when used as a normal component. Confirm with svelte-check; if it errors, branch on `children` being defined.
+The component renders `{@render children?.()}` inside `.content`. The custom element wrapper passes its `<slot />` as those children, so in the custom element `.content` contains a real `<slot>` element.
 
 Finding the slotted content for scanning: `content.querySelector('slot')?.assignedElements() ?? [content]`, then for each root take the root itself if it matches `levels` plus `root.querySelectorAll(levels)`.
 

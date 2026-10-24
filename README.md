@@ -1,79 +1,140 @@
-# Svelte library
+# section-nav
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+A sections sidebar for long pages. Wrap the page body in it and you get:
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+- a sticky sidebar listing the page's sections, with the current one highlighted as you scroll
+- a collapse handle, remembered in localStorage
+- keys: `j` / `k` step to the next / previous section, `b` collapses the sidebar
+- below 64rem, a sticky "current section" bar that opens the list as a popover
 
-## Creating a project
+One Svelte component, built two ways: a normal Svelte component for SvelteKit sites, and a `<section-nav>` custom element for plain HTML pages.
 
-If you're seeing this, you've probably already done this step. Congrats!
+> [!NOTE]
+> This project was built with heavy LLM assistance and should be considered proof-of-concept. Contributions are welcome, but I can't guarantee the accuracy of the code or that I will continue to maintain it. If there are any mistakes in attribution or anything else, please let me know.
 
-```sh
-# create a new project in the current directory
-npx sv create
+## SvelteKit
 
-# create a new project in my-app
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+Install from GitHub. The package exports source, so there is no build step on install:
 
 ```sh
-# recreate this project
-npx sv@1.1.1 create --template library --types ts --no-install sn-scaffold
+pnpm add github:mrgnw/section-nav
 ```
 
-## Adding features
+Pass the sections when you know them, so the nav is in the server-rendered HTML:
 
-Add features to your project with `sv add`:
+```svelte
+<script lang="ts">
+	import SectionNav, { type Section } from 'section-nav';
+
+	const sections: Section[] = [
+		{ id: 'basics', title: 'Basics', group: true },
+		{ id: 'install', title: 'Install' },
+		{ id: 'usage', title: 'Usage' }
+	];
+</script>
+
+<SectionNav {sections} --nav-top="4rem" --bar-top="45px">
+	<h2 id="basics">Basics</h2>
+	<h3 id="install">Install</h3>
+	<h3 id="usage">Usage</h3>
+</SectionNav>
+```
+
+Every `id` must match a heading (or any element) on the page. Entries with `group: true` render as small uppercase headings and are not tracked or stepped.
+
+Leave out `sections` and the component scans its content for `h2` and `h3` after mount instead. That works, but the list is empty in the server HTML.
+
+The page needs client-side rendering (`csr` on, the SvelteKit default). Without it the nav renders and is styled, but scroll tracking, the keys, collapse, and closing the popover do not run.
+
+pygorst is a working example: `src/lib/LangPage.svelte`.
+
+## Plain HTML
+
+Load the custom element and wrap the page:
+
+```html
+<script type="module" src="/_dmox/section-nav.js"></script>
+
+<section-nav>
+	<h2>Getting started</h2>
+	<h3>Install</h3>
+	<h3>Usage</h3>
+	<h2>Behavior</h2>
+	<h3>Keyboard</h3>
+</section-nav>
+```
+
+dmox serves the file at `/_dmox/section-nav.js` for every mockup. Anywhere else, build it (below) and serve `dist-ce/section-nav.js` yourself.
+
+The element scans its content for headings. When both levels exist, the first (`h2`) becomes a group heading and the second (`h3`) the items; with one level, every heading is an item. Headings without an `id` get one from their text (`Same title` becomes `same-title`, then `same-title-2`). It reads at most 200 headings. Scanned headings also get a scroll margin of `--nav-top`, so jumping to one clears a sticky header.
+
+Custom elements do not render on the server, so the sidebar appears once the script runs.
+
+## Props
+
+| Prop | Default | |
+|-|-|-|
+| `sections` | none | `{ id, title, group? }[]` in page order. Omit to scan. |
+| `levels` | `'h2,h3'` | Heading selectors to scan when `sections` is absent. |
+| `key` | `'sidebar'` | localStorage key for the collapsed state. |
+| `label` | `'Sections'` | The nav's `aria-label`, and the mobile bar text before a section is current. |
+
+On the custom element, set `levels`, `key`, and `label` as attributes. Set `sections` as a property from JS (`el.sections = [...]`).
+
+## Theming
+
+Custom properties, all optional. On the Svelte component pass them as `--name="value"`; on the element set them in `style` or CSS.
+
+| Property | Default | |
+|-|-|-|
+| `--nav-width` | `13rem` | Sidebar column width. |
+| `--nav-top` | `1rem` | Sticky offset of the desktop sidebar. Set it to your header height plus a gap. |
+| `--bar-top` | `0` | Sticky offset of the mobile bar. Set it to your header height. |
+| `--nav-muted` | `currentColor` at 55% | Link and icon color. |
+| `--nav-line` | `currentColor` at 15% | Borders. |
+| `--nav-bg` | `Canvas` | Mobile bar and popover background. |
+
+The current link and hovered links take the inherited text color. Colors follow the page's `color-scheme`.
+
+## Behavior notes
+
+- The current section is the last heading whose top is at most 96px below the viewport top.
+- Keys are ignored while a modifier is held, while typing in a field, and while a `<dialog>` is open.
+- Collapse runs inside a view transition unless the user prefers reduced motion.
+- One instance per page: the nav uses the fixed id `sections-nav`.
+
+## Develop
 
 ```sh
-npx sv add
+pnpm install
+pnpm dev
 ```
 
-For example, to add Tailwind CSS:
+The demo is at http://localhost:5241 (`src/routes/+page.svelte`). The plain HTML demo is `mockups/index.html`, which dmox serves.
+
+## Build
 
 ```sh
-npx sv add tailwindcss
+pnpm build:all
 ```
 
-## Developing
+- `pnpm build`: the Svelte component, packaged into `dist/`.
+- `pnpm build:ce`: the custom element, one ES module at `dist-ce/section-nav.js` (about 50 KB, 19 KB gzipped).
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The custom element's tag lives in `src/lib/SectionNavElement.svelte`, a wrapper that only `build:ce` uses. Keep `<svelte:options customElement>` out of `SectionNav.svelte`: Svelte treats any component carrying it as a custom element, even in a normal build, and then injects its CSS from JS instead of putting it in the page.
+
+## Update the copies
+
+After changing the component, push `main`, then update each consumer:
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+cd ~/dev/pygorst && pnpm update section-nav
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+dmox embeds a vendored copy of the custom element; its README has the refresh command.
 
-## Building
+Design details and the full spec: [SPEC.md](SPEC.md).
 
-To build your library:
+## License
 
-```sh
-npm pack
-```
-
-To create a production version of your showcase app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
+Private repository; no license yet.
