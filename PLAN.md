@@ -23,7 +23,7 @@ One source file, built two ways.
 <div class="grid"><nav popover>…</nav><slot /></div>
 ```
 
-- Normal Svelte component for SvelteKit sites. Vite library build with `customElement: true` emits one `section-nav.js`. Svelte ignores the tag option when not compiling as a custom element.
+- Normal Svelte component for SvelteKit sites. Vite library build with `customElement: true` emits one `section-nav.js`. The tag option lives in a wrapper component that only the custom element build imports; on the component itself it would make Svelte inject CSS from JS.
 - Plain CSS, no Tailwind: shadow DOM blocks global styles. `light-dark()` for color scheme. Host custom properties for theming: `--nav-width`, `--nav-muted`, `--nav-top`.
 - The component owns the two-column layout and slots the content, so a page wraps its body in `<section-nav>` and gets the sidebar, mobile bar, collapse handle and keyboard shortcuts with no other markup.
 - Behavior carried over: aria-current tracking on scroll, collapse with localStorage under `key`, `b` toggles, `j`/`k` step sections, below `lg` the nav is a popover opened from a sticky "current section" bar, view transitions on collapse.

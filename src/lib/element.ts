@@ -1,3 +1,3 @@
-import SectionNav from './SectionNav.svelte';
+import SectionNavElement from './SectionNavElement.svelte';
 
-export default SectionNav;
+export default SectionNavElement;

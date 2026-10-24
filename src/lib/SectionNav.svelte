@@ -1,18 +1,22 @@
-<svelte:options customElement={{ tag: 'section-nav', props: { sections: { type: 'Array' } } }} />
-
 <script module lang="ts">
 	export type Section = { id: string; title: string; group?: boolean };
 </script>
 
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
+	import { onMount, tick, type Snippet } from 'svelte';
 
-	type Props = { sections?: Section[]; levels?: string; key?: string; label?: string };
+	type Props = {
+		sections?: Section[];
+		levels?: string;
+		key?: string;
+		label?: string;
+		children?: Snippet;
+	};
 
 	const MAX_HEADINGS = 200;
 	const ACTIVE_LINE = 96;
 
-	let { sections, levels = 'h2,h3', key = 'sidebar', label = 'Sections' }: Props = $props();
+	let { sections, levels = 'h2,h3', key = 'sidebar', label = 'Sections', children }: Props = $props();
 
 	let scanned = $state<Section[]>([]);
 	let current = $state(0);
@@ -173,14 +177,10 @@
 			{/each}
 		</nav>
 	</div>
-	<div class="content" bind:this={content}><slot /></div>
+	<div class="content" bind:this={content}>{@render children?.()}</div>
 </div>
 
 <style>
-	:host {
-		display: block;
-	}
-
 	button {
 		font: inherit;
 		color: var(--nav-muted, color-mix(in oklab, currentColor 55%, transparent));

@@ -14,7 +14,7 @@ let { sections, levels = 'h2,h3', key = 'sidebar', label = 'Sections' } = $props
 - `key` is the localStorage key for the collapsed state. Values `'collapsed'` or `''`.
 - `label` is the nav's `aria-label` and the mobile bar fallback text.
 
-Custom element options: `<svelte:options customElement={{ tag: 'section-nav', props: { sections: { type: 'Array' } } }} />`. Svelte ignores this when not compiling as a custom element.
+Custom element options live in a thin wrapper, `src/lib/SectionNavElement.svelte`: `<svelte:options customElement={{ tag: 'section-nav', props: { sections: { type: 'Array' } } }} />`, which renders `<SectionNav {...props}><slot /></SectionNav>`. Keep the option out of `SectionNav.svelte`: Svelte treats any component with `customElement` options as a custom element even in a normal build, so its CSS gets injected from JS instead of extracted into the page.
 
 ## Markup
 
@@ -60,7 +60,7 @@ Motion, inside `@media (prefers-reduced-motion: no-preference)`: popover open/cl
 ## Builds
 
 - `pnpm build` → svelte-package as scaffolded (the normal component, `dist/`). `src/lib/index.ts` exports `SectionNav` as default and the `Section` type.
-- `pnpm build:ce` → `vite build --config vite.ce.config.ts`: `@sveltejs/vite-plugin-svelte` with `compilerOptions: { customElement: true, runes: true }`, lib build, entry `src/lib/element.ts` (which just imports the component so the tag registers), `formats: ['es']`, file name `section-nav.js`, `outDir: 'dist-ce'`, gitignored. Target modern browsers (`build.target: 'esnext'`).
+- `pnpm build:ce` → `vite build --config vite.ce.config.ts`: `@sveltejs/vite-plugin-svelte` with `compilerOptions: { customElement: true, runes: true }`, lib build, entry `src/lib/element.ts` (which imports `SectionNavElement.svelte` so the tag registers), `formats: ['es']`, file name `section-nav.js`, `outDir: 'dist-ce'`, gitignored. Target modern browsers (`build.target: 'esnext'`).
 - `pnpm build:all` runs both.
 - Dev server port 5241, `strictPort`, `host: true`, `allowedHosts: ['.example.ts.net']`.
 
