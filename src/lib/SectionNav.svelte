@@ -24,6 +24,7 @@
 	let nav: HTMLElement;
 	let content: HTMLElement;
 	let frame = 0;
+	let aimed = '';
 
 	let entries = $derived(sections ?? scanned);
 	let items = $derived(entries.filter((entry) => !entry.group));
@@ -70,18 +71,31 @@
 		});
 	}
 
+	function atBottom() {
+		return innerHeight + scrollY >= document.documentElement.scrollHeight - 1;
+	}
+
 	async function update() {
-		let next = 0;
+		let reached = 0;
 		items.forEach((item, index) => {
 			const heading = document.getElementById(item.id);
-			if (heading && heading.getBoundingClientRect().top <= ACTIVE_LINE) next = index;
+			if (heading && heading.getBoundingClientRect().top <= ACTIVE_LINE) reached = index;
 		});
+		const target = items.findIndex((item) => item.id === aimed);
+		const heading = document.getElementById(aimed);
+		const visible = heading !== null && heading.getBoundingClientRect().top < innerHeight;
+		const next = target > reached && visible && atBottom() ? target : reached;
 		if (next === current) return;
 		current = next;
 		await tick();
 		if (nav.scrollHeight > nav.clientHeight) {
 			nav.querySelector('[aria-current]')?.scrollIntoView({ block: 'nearest' });
 		}
+	}
+
+	function aimAtHash() {
+		aimed = decodeURIComponent(location.hash.slice(1));
+		update();
 	}
 
 	function onscroll() {
@@ -108,7 +122,9 @@
 	function step(delta: number) {
 		const target = items[Math.min(items.length - 1, Math.max(0, current + delta))];
 		if (target) {
+			aimed = target.id;
 			document.getElementById(target.id)?.scrollIntoView({ block: 'start', behavior: 'instant' });
+			update();
 		}
 	}
 
@@ -131,11 +147,11 @@
 	onMount(() => {
 		collapsed = localStorage.getItem(key) === 'collapsed';
 		if (!sections) scanned = scan();
-		update();
+		aimAtHash();
 	});
 </script>
 
-<svelte:window {onscroll} onresize={onscroll} />
+<svelte:window {onscroll} onresize={onscroll} onhashchange={aimAtHash} />
 <svelte:document {onkeydown} />
 
 <div class="layout" class:collapsed>
