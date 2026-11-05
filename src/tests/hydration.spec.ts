@@ -12,8 +12,7 @@ beforeAll(async () => {
 }, 60_000);
 
 afterAll(async () => {
-	await browser?.close();
-	await server?.close();
+	await Promise.allSettled([browser?.close(), server?.close()]);
 });
 
 it('hydrates the server-rendered demo without mismatch and keeps menus working', async () => {
