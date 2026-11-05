@@ -109,8 +109,17 @@ describe('TierBar', () => {
 			},
 		];
 		render(Fixture, { width: 700, breakpoints: [500, 300], groups });
+		const bar = document.querySelector<HTMLElement>('[data-tierbar]')!.dataset.tierbar;
 		const ids = [...document.querySelectorAll('nav a[id]')].map((a) => a.id);
-		expect(ids.sort()).toEqual(['x-inline-0', 'x-menu-1', 'x-menu-2', 'y-inline-0', 'y-menu-2']);
+		expect(ids.sort()).toEqual([`x-${bar}-inline-0`, `x-${bar}-menu-1`, `x-${bar}-menu-2`, `y-${bar}-inline-0`, `y-${bar}-menu-2`]);
+	});
+
+	it('keeps variant ids unique across two bars with the same items', async () => {
+		render(Fixture, { width: 700, name: 'First' });
+		render(Fixture, { width: 700, name: 'Second' });
+		const ids = [...document.querySelectorAll('nav a[id]')].map((a) => a.id);
+		expect(ids.length).toBeGreaterThan(0);
+		expect(new Set(ids).size).toBe(ids.length);
 	});
 
 	it('handles a tier change caused by new breakpoints', async () => {

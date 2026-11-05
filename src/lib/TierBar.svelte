@@ -8,7 +8,7 @@
 		breakpoints: readonly number[];
 		groups: readonly TierGroup<T>[];
 		/** Renders one item in one mode. Render an accessible name yourself in 'icon' mode. An item can
-		 *  render several times; `variant` (e.g. 'inline-0', 'menu-2') is unique per rendering, so suffix
+		 *  render several times; `variant` (e.g. 's1-inline-0') is unique per rendering on the page, so suffix
 		 *  DOM ids with it. */
 		item: Snippet<[T, Mode, string]>;
 		/** Contents of a group's menu button; `current` is true when the menu holds the current item. */
@@ -42,7 +42,7 @@
 						{@const tiers = tiersWhere(it, mode, count)}
 						{#if tiers.length > 0}
 							<span class="tierbar-slot" data-item={it.id} data-t={tiers.join(' ')} data-current={it.current || undefined}>
-								{@render item(it, mode, `${mode}-${tiers[0]}`)}
+								{@render item(it, mode, `${id}-${mode}-${tiers[0]}`)}
 							</span>
 						{/if}
 					{/each}
@@ -65,7 +65,7 @@
 						<div class="tierbar-menu" id={menuId} popover="auto" style:position-anchor="--{menuId}" onclick={closeAfterActivate}>
 							{#each menu.items as it (it.id)}
 								<span class="tierbar-slot" data-item={it.id} data-current={it.current || undefined}>
-									{@render item(it, 'menu', `menu-${menu.tiers[0]}`)}
+									{@render item(it, 'menu', `${id}-menu-${menu.tiers[0]}`)}
 								</span>
 							{/each}
 						</div>

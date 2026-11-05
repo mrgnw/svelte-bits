@@ -65,7 +65,7 @@ A group whose items are all `menu` in a tier collapses into its menu button.
 |-|-|-|
 | `breakpoints` | `number[]` | Container widths in px, strictly descending. n breakpoints make n + 1 tiers. |
 | `groups` | `TierGroup<T>[]` | `{ id, label, items }`. `label` is the menu button's accessible name. |
-| `item` | `Snippet<[T, Mode, string]>` | Renders one item in one mode. The third argument is the variant key (`inline-0`, `icon-2`, `menu-1`, …), unique per rendering. |
+| `item` | `Snippet<[T, Mode, string]>` | Renders one item in one mode. The third argument is the variant key (instance id plus mode and tier, e.g. `s1-inline-0`), unique per rendering across the page. |
 | `trigger` | `Snippet<[TierGroup<T>, boolean]>` | Optional contents of a menu button; the boolean is true when the menu holds the current item. Default: the group label. |
 | `as` | `'nav' \| 'div'` | Element of the bar. Default `div`. |
 | `class`, `aria-*`, `role`, … | | Passed to the bar element. |
@@ -89,7 +89,7 @@ To keep the current item labelled, compute `at` from it: `at: current ? 'inline'
 
 ### Behaviour
 
-- An item renders more than once: once per bar mode it uses, and once per menu it appears in. Suffix any DOM `id` (and the `aria-*` references to it) with the `variant` argument so ids stay unique.
+- An item renders more than once: once per bar mode it uses, and once per menu it appears in. Suffix any DOM `id` (and the `aria-*` references to it) with the `variant` argument so ids stay unique, also across several bars rendering the same items.
 - Each rendering sits in a `display: contents` wrapper with `data-t="<tiers>"`. Variants not in the current tier are `display: none`, so they are out of the tab order and the accessibility tree.
 - Menus are `popover="auto"` with their own `<button popovertarget>` and accessible name. Escape and outside click close them natively. Activating a link or button inside closes the menu. The popover follows its button in the DOM, so Tab reaches it.
 - Tiers whose menu holds the same items share one button. A button gets `data-current` when its menu holds a `current` item.
