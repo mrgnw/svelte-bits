@@ -133,6 +133,12 @@ function own(root: HTMLElement, el: Element): boolean {
 	return el.closest('[data-tierbar]') === root;
 }
 
+/** Whether an element sits in one of this bar's menus. A popover around the whole bar does not count. */
+function inMenu(root: HTMLElement, el: Element): boolean {
+	const menu = el.closest('[popover]');
+	return menu !== null && root.contains(menu);
+}
+
 function readTier(bar: Element): number {
 	return Number(getComputedStyle(bar).getPropertyValue('--tier')) || 0;
 }
@@ -147,7 +153,7 @@ function focusableIn(el: HTMLElement | undefined): HTMLElement | undefined {
 function counterpart(root: HTMLElement, from: HTMLElement, tier: number): HTMLElement | undefined {
 	const shown = (selector: string) =>
 		[...root.querySelectorAll<HTMLElement>(selector)].filter(
-			(el) => own(root, el) && shownIn(el, tier) && !el.closest('[popover]'),
+			(el) => own(root, el) && shownIn(el, tier) && !inMenu(root, el),
 		);
 	const ids =
 		from.closest<HTMLElement>('[data-item]')?.dataset.item?.split(' ') ??
