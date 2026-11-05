@@ -34,7 +34,7 @@
 <div data-testid="frame" style:width="{width}px">
 	<TierBar as="nav" aria-label={name} {breakpoints} {groups}>
 		{#snippet item(link: Link, mode: Mode, variant: string)}
-			<a id="{link.id}-{variant}" href="#{link.id}" aria-label={mode === 'icon' ? link.label : undefined}>{mode === 'icon' ? '•' : link.label}</a>
+			<a id="link-{variant}" href="#{link.id}" aria-label={mode === 'icon' ? link.label : undefined}>{mode === 'icon' ? '•' : link.label}</a>
 		{/snippet}
 	</TierBar>
 </div>

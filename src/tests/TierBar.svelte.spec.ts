@@ -111,10 +111,12 @@ describe('TierBar', () => {
 		render(Fixture, { width: 700, breakpoints: [500, 300], groups });
 		const bar = document.querySelector<HTMLElement>('[data-tierbar]')!.dataset.tierbar;
 		const ids = [...document.querySelectorAll('nav a[id]')].map((a) => a.id);
-		expect(ids.sort()).toEqual([`x-${bar}-inline-0`, `x-${bar}-menu-1`, `x-${bar}-menu-2`, `y-${bar}-inline-0`, `y-${bar}-menu-2`]);
+		expect(ids.sort()).toEqual(
+			[`${bar}-x-inline-0`, `${bar}-x-menu-1`, `${bar}-x-menu-2`, `${bar}-y-inline-0`, `${bar}-y-menu-2`].map((v) => `link-${v}`),
+		);
 	});
 
-	it('keeps variant ids unique across two bars with the same items', async () => {
+	it('keeps a static prefix plus variant unique across items and bars', async () => {
 		render(Fixture, { width: 700, name: 'First' });
 		render(Fixture, { width: 700, name: 'Second' });
 		const ids = [...document.querySelectorAll('nav a[id]')].map((a) => a.id);
