@@ -98,8 +98,9 @@
 	<h2>Navigation</h2>
 	<div class="frame">
 		<TierBar as="nav" aria-label="Main" class="demo-nav" breakpoints={[640, 480, 340]} groups={nav}>
-			{#snippet item(link: Link, mode: Mode)}
+			{#snippet item(link: Link, mode: Mode, variant: string)}
 				<a
+					id="nav-{link.id}-{variant}"
 					href="#{link.id}"
 					aria-current={link.current ? 'page' : undefined}
 					aria-label={mode === 'icon' ? link.label : undefined}
@@ -117,8 +118,9 @@
 	<h2>Editor toolbar</h2>
 	<div class="frame">
 		<TierBar aria-label="Formatting" role="group" class="demo-toolbar" breakpoints={[720, 520, 360]} groups={toolbar}>
-			{#snippet item(tool: Tool, mode: Mode)}
+			{#snippet item(tool: Tool, mode: Mode, variant: string)}
 				<button
+					id="tool-{tool.id}-{variant}"
 					type="button"
 					aria-pressed={tool.toggle ? !!pressed[tool.id] : undefined}
 					aria-label={mode === 'icon' ? tool.label : undefined}

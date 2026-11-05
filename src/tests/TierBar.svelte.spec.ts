@@ -96,4 +96,20 @@ describe('TierBar', () => {
 		await trigger().click();
 		expect(shownIn(row, 1)).toBe(true);
 	});
+
+	it('gives every rendering of an item its own variant key', async () => {
+		const groups = [
+			{
+				id: 'g',
+				label: 'More sections',
+				items: [
+					{ id: 'x', label: 'X', at: ['inline', 'menu'] as const },
+					{ id: 'y', label: 'Y', at: ['inline', 'inline', 'menu'] as const },
+				],
+			},
+		];
+		render(Fixture, { width: 700, breakpoints: [500, 300], groups });
+		const ids = [...document.querySelectorAll('nav a[id]')].map((a) => a.id);
+		expect(ids.sort()).toEqual(['x-inline-0', 'x-menu-1', 'x-menu-2', 'y-inline-0', 'y-menu-2']);
+	});
 });
