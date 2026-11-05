@@ -18,6 +18,16 @@ export default defineConfig({
 			adapter: adapter()
 		})
 	],
+	server: {
+		port: 5262,
+		strictPort: true,
+		allowedHosts: ['.example.ts.net']
+	},
+	preview: {
+		port: 5262,
+		strictPort: true,
+		allowedHosts: ['.example.ts.net']
+	},
 	test: {
 		expect: { requireAssertions: true },
 		projects: [
