@@ -22,12 +22,13 @@ it('hydrates the server-rendered demo without mismatch and keeps menus working',
 	page.on('pageerror', (e) => messages.push(e.message));
 
 	const html = await (await fetch(server.resolvedUrls!.local[0])).text();
-	expect(html).toMatch(/@container tierbar-\S+ \(width >= 720px\)/);
+	expect(html).toMatch(/@container tierbar-\S+ \(width >= 860px\)/);
 	expect(html).toContain('popovertarget=');
 
 	await page.goto(server.resolvedUrls!.local[0]);
 	await page.waitForLoadState('networkidle');
 
+	await page.getByRole('slider').nth(1).fill('300');
 	const insert = page.getByRole('button', { name: 'Insert' });
 	await insert.focus();
 	await page.keyboard.press('Enter');

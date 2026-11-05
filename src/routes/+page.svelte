@@ -1,188 +1,85 @@
 <script lang="ts">
-	import { TierBar, type Mode, type TierGroup, type TierItem } from '#lib';
-
-	type Link = TierItem & { label: string; icon: string };
-	type Tool = TierItem & { label: string; icon: string; toggle?: boolean };
-
-	const PRIMARY = [
-		['home', 'Home', '⌂'],
-		['projects', 'Projects', '▤'],
-		['issues', 'Issues', '◉'],
-		['docs', 'Docs', '❡'],
-	] as const;
-	const SECONDARY = [
-		['profile', 'Profile', '☺'],
-		['settings', 'Settings', '⚙'],
-		['help', 'Help', '?'],
-	] as const;
-
-	let here = $state('issues');
-
-	const nav: TierGroup<Link>[] = $derived([
-		{
-			id: 'main',
-			label: 'Sections',
-			items: PRIMARY.map(([id, label, icon]) => ({
-				id,
-				label,
-				icon,
-				current: id === here,
-				at: id === here ? 'inline' : ['inline', 'inline', 'icon', 'icon'],
-			})),
-		},
-		{
-			id: 'account',
-			label: 'Account and help',
-			items: SECONDARY.map(([id, label, icon]) => ({
-				id,
-				label,
-				icon,
-				current: id === here,
-				at: ['inline', 'menu'],
-			})),
-		},
-	]);
-
-	let pressed = $state<Record<string, boolean>>({ bold: true });
-
-	function tools(list: readonly (readonly [string, string, string])[], at: readonly Mode[], toggle = false): Tool[] {
-		return list.map(([id, label, icon]) => ({ id, label, icon, toggle, at, current: toggle && pressed[id] }));
-	}
-
-	const toolbar: TierGroup<Tool>[] = $derived([
-		{
-			id: 'format',
-			label: 'Formatting',
-			items: tools(
-				[
-					['bold', 'Bold', 'B'],
-					['italic', 'Italic', 'I'],
-					['underline', 'Underline', 'U'],
-					['strike', 'Strikethrough', 'S'],
-				],
-				['inline', 'icon', 'icon', 'icon'],
-				true,
-			),
-		},
-		{
-			id: 'insert',
-			label: 'Insert',
-			items: tools(
-				[
-					['link', 'Link', '🔗'],
-					['code', 'Code', '‹›'],
-					['quote', 'Quote', '❝'],
-					['list', 'List', '≡'],
-				],
-				['inline', 'icon', 'menu'],
-			),
-		},
-		{
-			id: 'history',
-			label: 'History',
-			items: tools(
-				[
-					['undo', 'Undo', '↶'],
-					['redo', 'Redo', '↷'],
-				],
-				['inline', 'icon', 'icon', 'menu'],
-			),
-		},
-	]);
+	import Stage from './Stage.svelte';
+	import NavExample, { breakpoints as navBreakpoints } from './examples/NavExample.svelte';
+	import navSource from './examples/NavExample.svelte?raw';
+	import ToolbarExample, { breakpoints as toolbarBreakpoints } from './examples/ToolbarExample.svelte';
+	import toolbarSource from './examples/ToolbarExample.svelte?raw';
 </script>
 
+<svelte:head>
+	<title>TierBar demo</title>
+</svelte:head>
+
 <main>
-	<h1>TierBar</h1>
-	<p>Drag the bottom-right corner of each box to resize it. The bar picks its tier from its own width.</p>
+	<header>
+		<h1>TierBar</h1>
+		<p>
+			A Svelte 5 bar that collapses through a fixed ladder of tiers chosen by its own width. In each tier an item
+			is inline, icon-only, or inside its group's menu. The tier comes from CSS container queries, so the server
+			HTML is already correct and nothing is measured.
+		</p>
+		<p>Drag a width slider. The readout shows the tier the CSS picked and the mode of every item.</p>
+	</header>
 
-	<h2>Navigation</h2>
-	<div class="frame">
-		<TierBar as="nav" aria-label="Main" class="demo-nav" breakpoints={[640, 480, 340]} groups={nav}>
-			{#snippet item(link: Link, mode: Mode, variant: string)}
-				<a
-					id="nav-{variant}"
-					href="#{link.id}"
-					aria-current={link.current ? 'page' : undefined}
-					aria-label={mode === 'icon' ? link.label : undefined}
-					title={mode === 'icon' ? link.label : undefined}
-					onclick={() => (here = link.id)}
-				>
-					<span aria-hidden="true">{link.icon}</span>
-					{#if mode !== 'icon'}{link.label}{/if}
-				</a>
-			{/snippet}
-			{#snippet trigger()}<span aria-hidden="true">⋯</span>{/snippet}
-		</TierBar>
-	</div>
+	<Stage title="Navigation" breakpoints={navBreakpoints} source={navSource}>
+		<NavExample />
+	</Stage>
 
-	<h2>Editor toolbar</h2>
-	<div class="frame">
-		<TierBar aria-label="Formatting" role="group" class="demo-toolbar" breakpoints={[720, 520, 360]} groups={toolbar}>
-			{#snippet item(tool: Tool, mode: Mode, variant: string)}
-				<button
-					id="tool-{variant}"
-					type="button"
-					aria-pressed={tool.toggle ? !!pressed[tool.id] : undefined}
-					aria-label={mode === 'icon' ? tool.label : undefined}
-					title={tool.label}
-					onclick={() => tool.toggle && (pressed[tool.id] = !pressed[tool.id])}
-				>
-					<span aria-hidden="true">{tool.icon}</span>
-					{#if mode !== 'icon'}{tool.label}{/if}
-				</button>
-			{/snippet}
-			{#snippet trigger(group: TierGroup<Tool>)}{group.label} ▾{/snippet}
-		</TierBar>
-	</div>
+	<Stage title="Editor toolbar" breakpoints={toolbarBreakpoints} source={toolbarSource}>
+		<ToolbarExample />
+	</Stage>
 </main>
 
 <style>
+	:global(:root) {
+		color-scheme: light dark;
+		--ink: #1b1b1f;
+		--muted: #5f6068;
+		--line: #d9d9de;
+		--surface: #ffffff;
+		--page: #f6f6f7;
+		--code-bg: #f0f0f2;
+		--accent: #1d4ed8;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:global(:root) {
+			--ink: #ececf0;
+			--muted: #a0a1aa;
+			--line: #3a3b42;
+			--surface: #1d1e22;
+			--page: #141518;
+			--code-bg: #1a1b1f;
+			--accent: #93b4ff;
+		}
+	}
+
+	:global(body) {
+		margin: 0;
+		background: var(--page);
+		color: var(--ink);
+		font: 15px/1.5 system-ui, sans-serif;
+	}
+
 	main {
-		font: 15px/1.4 system-ui, sans-serif;
-		max-width: 60rem;
-		margin: 2rem auto;
-		padding-inline: 1rem;
+		display: grid;
+		gap: 3rem;
+		max-width: 90rem;
+		margin: 0 auto;
+		padding: 2rem 1rem 4rem;
 	}
 
-	.frame {
-		resize: horizontal;
-		overflow: auto;
-		width: 100%;
-		min-width: 12rem;
-		max-width: 100%;
-		padding: 0.5rem;
-		border: 1px dashed #999;
+	header {
+		max-width: 46rem;
 	}
 
-	:global(.demo-nav a),
-	:global(.demo-nav .tierbar-trigger),
-	:global(.demo-toolbar button) {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
-		padding: 0.35rem 0.6rem;
-		border: 0;
-		border-radius: 0.375rem;
-		background: none;
-		color: inherit;
-		text-decoration: none;
-		cursor: pointer;
+	h1 {
+		margin: 0 0 0.5rem;
+		font-size: 1.75rem;
 	}
 
-	:global(.demo-nav a:hover),
-	:global(.demo-toolbar button:hover) {
-		background: #0000000f;
-	}
-
-	:global(.demo-nav [aria-current]),
-	:global(.demo-toolbar [aria-pressed='true']),
-	:global(.demo-nav .tierbar-trigger[data-current]) {
-		background: #2563eb1f;
-		color: #1d4ed8;
-	}
-
-	:global(.tierbar-menu a),
-	:global(.tierbar-menu button) {
-		justify-content: flex-start;
+	p {
+		margin: 0 0 0.5rem;
+		color: var(--muted);
 	}
 </style>

@@ -8,9 +8,9 @@ describe('TierBar on the server', () => {
 		expect(head).toMatch(/@container tierbar-\S+ \(width >= 500px\)/);
 		expect(head).toMatch(/@container tierbar-\S+ \(width < 500px\)/);
 		expect(head).toContain('[data-t]:not([data-t~="1"])');
-		expect(body).toMatch(/data-item="settings" data-t="0"/);
+		expect(body).toMatch(/data-item="settings" data-mode="inline" data-t="0"/);
 		expect(body).toMatch(/data-holds="settings help" data-t="1"/);
-		expect(body).toMatch(/data-item="docs" data-t="1"/);
+		expect(body).toMatch(/data-item="docs" data-mode="icon" data-t="1"/);
 		expect(body).toContain('popovertarget=');
 	});
 

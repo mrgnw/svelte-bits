@@ -136,7 +136,6 @@ Target: [Baseline](https://web.dev/baseline) widely available (`browserslist`: `
 | Custom properties, `@supports`, flex `gap`, `color-mix()`, system colors | Styling | Widely available | None needed |
 | `popover`, `popovertarget`, `:popover-open` | Menus | Newly available (2025-01) | Without `popover`, the button toggles `data-open` on the menu, which is placed under the button relative to the bar; Escape, outside click and activating an item close it. |
 | CSS anchor positioning (`position-area`, `position-try-fallbacks`) | Menu placement | Not Baseline | Without it, the menu is placed under its button in JavaScript when it opens, flipped left or up to stay in the viewport. It does not follow the button while the page scrolls. |
-| `resize` (demo only) | Resizable demo frames | Not Baseline (no iOS) | The demo also has a width slider. |
 
 ## Development
 

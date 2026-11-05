@@ -41,7 +41,7 @@
 					{#each BAR_MODES as mode (mode)}
 						{@const tiers = tiersWhere(it, mode, count)}
 						{#if tiers.length > 0}
-							<span class="tierbar-slot" data-item={it.id} data-t={tiers.join(' ')} data-current={it.current || undefined}>
+							<span class="tierbar-slot" data-item={it.id} data-mode={mode} data-t={tiers.join(' ')} data-current={it.current || undefined}>
 								{@render item(it, mode, `${id}-${it.id}-${mode}-${tiers[0]}`)}
 							</span>
 						{/if}
@@ -65,7 +65,7 @@
 						<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 						<div class="tierbar-menu" id={menuId} popover="auto" style:position-anchor="--{menuId}" onclick={closeAfterActivate} ontoggle={onMenuToggle}>
 							{#each menu.items as it (it.id)}
-								<span class="tierbar-slot" data-item={it.id} data-current={it.current || undefined}>
+								<span class="tierbar-slot" data-item={it.id} data-mode="menu" data-current={it.current || undefined}>
 									{@render item(it, 'menu', `${id}-${it.id}-menu-${menu.tiers[0]}`)}
 								</span>
 							{/each}
