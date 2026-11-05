@@ -79,6 +79,14 @@ pnpm dev
 
 It runs at http://localhost:5262.
 
+The demo is also the docs site, a prerendered SvelteKit app served from Cloudflare Workers static assets. To run the production build in the local Workers runtime at http://localhost:5263:
+
+```sh
+pnpm site:preview
+```
+
+The `ship` script builds and deploys. Run it only from a clean, pushed `main`.
+
 ## Docs
 
 - [Usage](docs/usage.md): props, snippets, `variant` ids, modes, groups, styling
