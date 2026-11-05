@@ -47,7 +47,10 @@
 			aria-current={link.current ? 'page' : undefined}
 			aria-label={mode === 'icon' ? link.label : undefined}
 			title={mode === 'icon' ? link.label : undefined}
-			onclick={() => (here = link.id)}
+			onclick={(e) => {
+				e.preventDefault();
+				here = link.id;
+			}}
 		>
 			<span aria-hidden="true">{link.icon}</span>
 			{#if mode !== 'icon'}{link.label}{/if}

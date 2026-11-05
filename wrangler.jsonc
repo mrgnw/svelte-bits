@@ -1,0 +1,11 @@
+{
+	"name": "svelte-components",
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"compatibility_date": "2026-11-05",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"workers_dev": true,
+	"preview_urls": true
+}
