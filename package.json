@@ -1,6 +1,7 @@
 {
 	"name": "svelte-components",
 	"version": "0.0.1",
+	"license": "MIT",
 	"keywords": [
 		"svelte"
 	],

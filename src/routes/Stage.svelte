@@ -42,6 +42,7 @@
 	}
 
 	async function copy() {
+		if (!navigator.clipboard) return;
 		await navigator.clipboard.writeText(code);
 		copied = true;
 		setTimeout(() => (copied = false), 1500);
