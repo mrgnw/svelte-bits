@@ -24,6 +24,7 @@ export type Menu<T extends TierItem = TierItem> = {
 };
 
 const ID = /^[A-Za-z][\w-]*$/;
+const MODES: readonly string[] = ['inline', 'icon', 'menu'] satisfies Mode[];
 const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 function assert(ok: boolean, message: string): asserts ok {
@@ -38,15 +39,20 @@ export function tierCount(breakpoints: readonly number[], groups: readonly TierG
 		assert(i === 0 || b < breakpoints[i - 1], 'breakpoints must be strictly descending');
 	});
 	const ids = new Set<string>();
+	const groupIds = new Set<string>();
 	for (const group of groups) {
 		assert(ID.test(group.id), `group id "${group.id}" must match ${ID}`);
+		assert(!groupIds.has(group.id), `group id "${group.id}" is used twice`);
+		groupIds.add(group.id);
 		for (const item of group.items) {
 			assert(ID.test(item.id), `item id "${item.id}" must match ${ID}`);
 			assert(!ids.has(item.id), `item id "${item.id}" is used twice`);
 			ids.add(item.id);
+			const modes: readonly Mode[] = typeof item.at === 'string' ? [item.at] : (item.at ?? []);
 			if (Array.isArray(item.at)) {
 				assert(item.at.length > 0 && item.at.length <= count, `item "${item.id}" has ${item.at.length} modes for ${count} tiers`);
 			}
+			for (const mode of modes) assert(MODES.includes(mode), `item "${item.id}" has unknown mode "${mode}"`);
 		}
 	}
 	return count;

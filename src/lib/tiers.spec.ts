@@ -47,5 +47,8 @@ describe('tiers', () => {
 		expect(() => tierCount([], [{ ...group, items: [{ id: 'a' }, { id: 'a' }] }])).toThrow('twice');
 		expect(() => tierCount([], [{ ...group, items: [{ id: 'a b' }] }])).toThrow('must match');
 		expect(() => tierCount([], [{ ...group, items: [{ id: 'a', at: ['inline', 'icon'] }] }])).toThrow('2 modes for 1 tiers');
+		expect(() => tierCount([900, 600], [group, { ...group, items: [] }])).toThrow('group id "g" is used twice');
+		expect(() => tierCount([], [{ ...group, items: [{ id: 'a', at: 'hidden' as never }] }])).toThrow('mode "hidden"');
+		expect(() => tierCount([900], [{ ...group, items: [{ id: 'a', at: ['inline', 'tiny' as never] }] }])).toThrow('mode "tiny"');
 	});
 });
