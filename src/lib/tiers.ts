@@ -97,7 +97,8 @@ export function tierQueries(breakpoints: readonly number[]): string[] {
  *  The :not() leaves the variants of a TierBar nested inside this one to its own rules. */
 export function tierCss(id: string, breakpoints: readonly number[]): string {
 	const scope = `[data-tierbar="${id}"]`;
-	return tierQueries(breakpoints)
+	const base = `${scope} > [data-bar] { --tier: 0; }\n`;
+	return base + tierQueries(breakpoints)
 		.map(
 			(q, t) =>
 				`@container tierbar-${id} ${q} {` +
@@ -107,15 +108,21 @@ export function tierCss(id: string, breakpoints: readonly number[]): string {
 		.join('\n');
 }
 
-/** Whether an element shows in a tier: no ancestor's data-t excludes the tier and no ancestor is a
- *  closed menu. */
+/** Whether an element shows in a tier: no ancestor up to its own TierBar root has a data-t that
+ *  excludes the tier or is a closed menu. */
 export function shownIn(el: Element, tier: number): boolean {
 	for (let e: Element | null = el; e; e = e.parentElement) {
 		const tiers = e.getAttribute('data-t');
 		if (tiers !== null && !tiers.split(' ').includes(String(tier))) return false;
 		if (e.hasAttribute('popover') && !e.matches(':popover-open')) return false;
+		if (e.hasAttribute('data-tierbar')) break;
 	}
 	return true;
+}
+
+/** Whether an element belongs to this TierBar and not to one nested inside it. */
+function own(root: HTMLElement, el: Element): boolean {
+	return el.closest('[data-tierbar]') === root;
 }
 
 function readTier(bar: Element): number {
@@ -131,7 +138,9 @@ function focusableIn(el: HTMLElement | undefined): HTMLElement | undefined {
  *  current item, else the first item. */
 function counterpart(root: HTMLElement, from: HTMLElement, tier: number): HTMLElement | undefined {
 	const shown = (selector: string) =>
-		[...root.querySelectorAll<HTMLElement>(selector)].filter((el) => shownIn(el, tier) && !el.closest('[popover]'));
+		[...root.querySelectorAll<HTMLElement>(selector)].filter(
+			(el) => own(root, el) && shownIn(el, tier) && !el.closest('[popover]'),
+		);
 	const ids =
 		from.closest<HTMLElement>('[data-item]')?.dataset.item?.split(' ') ??
 		from.closest<HTMLElement>('[data-holds]')?.dataset.holds?.split(' ') ??
@@ -154,7 +163,8 @@ export function keepFocus(root: HTMLElement) {
 	let last: HTMLElement | null = null;
 
 	const onFocusIn = (e: FocusEvent) => {
-		last = e.target as HTMLElement;
+		const el = e.target as HTMLElement;
+		if (own(root, el)) last = el;
 	};
 	const onFocusOut = (e: FocusEvent) => {
 		const to = e.relatedTarget as Node | null;
@@ -174,7 +184,7 @@ export function keepFocus(root: HTMLElement) {
 		if (next === tier) return;
 		tier = next;
 		const from = last;
-		for (const menu of root.querySelectorAll<HTMLElement>(':popover-open')) menu.hidePopover();
+		for (const menu of root.querySelectorAll<HTMLElement>(':popover-open')) if (own(root, menu)) menu.hidePopover();
 		requestAnimationFrame(() => follow(from));
 	});
 
