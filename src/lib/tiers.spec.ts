@@ -40,6 +40,12 @@ describe('tiers', () => {
 		expect(css).toContain('--tier: 1;');
 	});
 
+	it('validates breakpoints before building CSS', () => {
+		expect(() => tierCss('x', ['1px}</style>' as never])).toThrow('breakpoint');
+		expect(() => tierCss('x', [300, 600])).toThrow('descending');
+		expect(() => tierCss('x', [Number.NaN])).toThrow('breakpoint');
+	});
+
 	it('rejects bad props', () => {
 		expect(tierCount([900, 600], [group])).toBe(3);
 		expect(() => tierCount([600, 900], [])).toThrow('descending');

@@ -13,4 +13,14 @@ describe('TierBar on the server', () => {
 		expect(body).toMatch(/data-item="docs" data-t="1"/);
 		expect(body).toContain('popovertarget=');
 	});
+
+	it('rejects a breakpoint that is not a number, even with no groups', () => {
+		const evil = '1px)}</style><script>alert(1)</script><style>' as unknown as number;
+		let html = '';
+		expect(() => {
+			const { head, body } = render(Fixture, { props: { width: 700, breakpoints: [evil], groups: [] } });
+			html = head + body;
+		}).toThrow('breakpoint');
+		expect(html).not.toContain('<script>alert');
+	});
 });

@@ -31,13 +31,19 @@ function assert(ok: boolean, message: string): asserts ok {
 	if (!ok) throw new Error(`TierBar: ${message}`);
 }
 
+/** Breakpoints as plain numbers: finite, positive, strictly descending. They end up in a <style>
+ *  element, so nothing else may get through. */
+function checkedBreakpoints(breakpoints: readonly number[]): number[] {
+	return breakpoints.map((b, i) => {
+		assert(typeof b === 'number' && Number.isFinite(b) && b > 0, `breakpoint ${String(b)} must be a positive number of px`);
+		assert(i === 0 || b < breakpoints[i - 1], 'breakpoints must be strictly descending');
+		return Number(b);
+	});
+}
+
 /** Checks the props and returns how many tiers they define: one more than the breakpoints. */
 export function tierCount(breakpoints: readonly number[], groups: readonly TierGroup[]): number {
-	const count = breakpoints.length + 1;
-	breakpoints.forEach((b, i) => {
-		assert(Number.isFinite(b) && b > 0, `breakpoint ${b} must be a positive number of px`);
-		assert(i === 0 || b < breakpoints[i - 1], 'breakpoints must be strictly descending');
-	});
+	const count = checkedBreakpoints(breakpoints).length + 1;
 	const ids = new Set<string>();
 	const groupIds = new Set<string>();
 	for (const group of groups) {
@@ -84,7 +90,8 @@ export function menusOf<T extends TierItem>(group: TierGroup<T>, count: number):
 }
 
 /** The container query for each tier, widest first. */
-export function tierQueries(breakpoints: readonly number[]): string[] {
+export function tierQueries(unchecked: readonly number[]): string[] {
+	const breakpoints = checkedBreakpoints(unchecked);
 	if (breakpoints.length === 0) return [];
 	return [
 		`(width >= ${breakpoints[0]}px)`,
@@ -96,6 +103,7 @@ export function tierQueries(breakpoints: readonly number[]): string[] {
 /** Per tier: hide every variant not marked for it, and expose the tier as --tier for the focus code.
  *  The :not() leaves the variants of a TierBar nested inside this one to its own rules. */
 export function tierCss(id: string, breakpoints: readonly number[]): string {
+	assert(/^[\w-]+$/.test(id), `instance id "${id}" must be a plain identifier`);
 	const scope = `[data-tierbar="${id}"]`;
 	const base = `${scope} > [data-bar] { --tier: 0; }\n`;
 	return base + tierQueries(breakpoints)
