@@ -119,9 +119,9 @@ Tiers use **container queries**, not media queries. A generic bar is placed in s
 
 Breakpoints are props, but a component's `<style>` cannot hold runtime values. `TierBar` generates the rules from the props and puts them in `<svelte:head>`, scoped by an id from `$props.id()`, which matches between server and client. The CSS is built only from validated numbers and that id.
 
-Focus handling needs to know when the tier changed. `matchMedia` cannot see container queries, so each tier's rule also sets `--tier` on the bar, and the code reads it with `getComputedStyle`. A ResizeObserver is the signal to re-read `--tier`; it measures nothing, so the tier always comes from the same CSS that decides visibility.
+Focus handling needs to know when the tier changed. `matchMedia` cannot see container queries, so each tier's rule also sets `--tier` on the bar, and the code reads it with `getComputedStyle`. `--tier` is re-read when a ResizeObserver fires and when `breakpoints` change. The observer measures nothing, so the tier always comes from the same CSS that decides visibility.
 
-Limits: popover anchoring uses CSS anchor positioning (`position-area`); where unsupported, the menu falls back to the browser's default centred popover. A `TierBar` nested inside another keeps its own rules.
+Limits: popover anchoring uses CSS anchor positioning (`position-area`); where unsupported, the menu falls back to the browser's default centred popover. A `TierBar` nested inside another keeps its own tiers, focus handling and menus.
 
 ## Development
 

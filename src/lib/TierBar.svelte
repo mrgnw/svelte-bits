@@ -1,7 +1,7 @@
 <script lang="ts" generics="T extends TierItem">
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { keepFocus, menusOf, tierCount, tierCss, tiersWhere, type Mode, type TierGroup, type TierItem } from './tiers.js';
+	import { menusOf, tierFocus, tierCount, tierCss, tiersWhere, type Mode, type TierGroup, type TierItem } from './tiers.js';
 
 	type Props = HTMLAttributes<HTMLElement> & {
 		/** Container widths in px, descending. n breakpoints make n + 1 tiers; tier 0 is the widest. */
@@ -22,6 +22,7 @@
 	const count = $derived(tierCount(breakpoints, groups));
 	const css = $derived(tierCss(id, breakpoints));
 	const BAR_MODES = ['inline', 'icon'] as const;
+	const focus = tierFocus();
 
 	function closeAfterActivate(e: MouseEvent) {
 		if ((e.target as Element).closest('a[href], button')) (e.currentTarget as HTMLElement).hidePopover();
@@ -32,7 +33,7 @@
 	{@html `<style>${css}</style>`}
 </svelte:head>
 
-<div class="tierbar-root" data-tierbar={id} style:container-name="tierbar-{id}" {@attach keepFocus}>
+<div class="tierbar-root" data-tierbar={id} style:container-name="tierbar-{id}" {@attach focus.attach} {@attach () => focus.check(css)}>
 	<svelte:element this={as} {...rest} class={['tierbar', className]} data-bar>
 		{#each groups as group (group.id)}
 			<div class="tierbar-group" data-group={group.id}>

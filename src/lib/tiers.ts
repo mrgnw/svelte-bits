@@ -152,26 +152,19 @@ function counterpart(root: HTMLElement, from: HTMLElement, tier: number): HTMLEl
 	return [same, holder, current, ...slots].map(focusableIn).find((el) => el !== undefined);
 }
 
-/** Attachment for the TierBar root. When the tier changes it closes open menus and, if the focused
- *  control went display:none, moves focus to its visible counterpart. The tier is read from the
- *  CSS's own container queries (--tier); the ResizeObserver is only the signal to look, it measures
- *  nothing. */
-export function keepFocus(root: HTMLElement) {
-	const bar = root.querySelector<HTMLElement>('[data-bar]');
-	assert(bar !== null, 'root has no [data-bar]');
-	let tier = readTier(bar);
+/** Focus handling for one TierBar. `attach` goes on the root; `check` runs after the tier may have
+ *  changed. On a change it closes open menus and, if the focused control went display:none, moves
+ *  focus to its visible counterpart. The tier is read from the CSS's own container queries (--tier).
+ *  A ResizeObserver calls `check` on resize and the component calls it when the breakpoints change;
+ *  neither measures anything. */
+export function tierFocus() {
+	let root: HTMLElement | null = null;
+	let bar: HTMLElement | null = null;
+	let tier = 0;
 	let last: HTMLElement | null = null;
 
-	const onFocusIn = (e: FocusEvent) => {
-		const el = e.target as HTMLElement;
-		if (own(root, el)) last = el;
-	};
-	const onFocusOut = (e: FocusEvent) => {
-		const to = e.relatedTarget as Node | null;
-		if (to && !root.contains(to)) last = null;
-	};
 	const follow = (from: HTMLElement | null) => {
-		if (!from?.isConnected || shownIn(from, tier)) return;
+		if (!root || !from?.isConnected || shownIn(from, tier)) return;
 		const active = document.activeElement;
 		const lost = !active || active === document.body || (root.contains(active) && !shownIn(active, tier));
 		if (!lost) return;
@@ -179,21 +172,43 @@ export function keepFocus(root: HTMLElement) {
 		to?.focus();
 		last = to ?? null;
 	};
-	const observer = new ResizeObserver(() => {
+
+	/** `_css` is unused; passing it lets the caller re-run `check` whenever the generated CSS changes. */
+	const check = (_css?: string) => {
+		if (!root || !bar) return;
 		const next = readTier(bar);
 		if (next === tier) return;
 		tier = next;
 		const from = last;
 		for (const menu of root.querySelectorAll<HTMLElement>(':popover-open')) if (own(root, menu)) menu.hidePopover();
 		requestAnimationFrame(() => follow(from));
-	});
-
-	root.addEventListener('focusin', onFocusIn);
-	root.addEventListener('focusout', onFocusOut);
-	observer.observe(root);
-	return () => {
-		root.removeEventListener('focusin', onFocusIn);
-		root.removeEventListener('focusout', onFocusOut);
-		observer.disconnect();
 	};
+
+	const attach = (el: HTMLElement) => {
+		const found = el.querySelector<HTMLElement>('[data-bar]');
+		assert(found !== null, 'root has no [data-bar]');
+		root = el;
+		bar = found;
+		tier = readTier(found);
+		const onFocusIn = (e: FocusEvent) => {
+			const target = e.target as HTMLElement;
+			if (own(el, target)) last = target;
+		};
+		const onFocusOut = (e: FocusEvent) => {
+			const to = e.relatedTarget as Node | null;
+			if (to && !el.contains(to)) last = null;
+		};
+		const observer = new ResizeObserver(() => check());
+		el.addEventListener('focusin', onFocusIn);
+		el.addEventListener('focusout', onFocusOut);
+		observer.observe(el);
+		return () => {
+			el.removeEventListener('focusin', onFocusIn);
+			el.removeEventListener('focusout', onFocusOut);
+			observer.disconnect();
+			root = bar = last = null;
+		};
+	};
+
+	return { attach, check };
 }

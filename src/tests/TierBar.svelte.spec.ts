@@ -112,4 +112,15 @@ describe('TierBar', () => {
 		const ids = [...document.querySelectorAll('nav a[id]')].map((a) => a.id);
 		expect(ids.sort()).toEqual(['x-inline-0', 'x-menu-1', 'x-menu-2', 'y-inline-0', 'y-menu-2']);
 	});
+
+	it('handles a tier change caused by new breakpoints', async () => {
+		const { rerender } = render(Fixture, { width: 400, breakpoints: [500] });
+		await trigger().click();
+		await expect.element(link('Settings')).toBeVisible();
+		link('Settings').element().focus();
+		await rerender({ breakpoints: [300] });
+		await expect.element(trigger()).not.toBeInTheDocument();
+		await expect.poll(() => document.activeElement?.textContent).toBe('Settings');
+		expect(document.querySelector(':popover-open')).toBe(null);
+	});
 });
