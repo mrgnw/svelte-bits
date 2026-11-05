@@ -107,11 +107,13 @@ export function tierCss(id: string, breakpoints: readonly number[]): string {
 		.join('\n');
 }
 
-/** Whether an element shows in a tier, read from the data-t it and its ancestors carry. */
+/** Whether an element shows in a tier: no ancestor's data-t excludes the tier and no ancestor is a
+ *  closed menu. */
 export function shownIn(el: Element, tier: number): boolean {
 	for (let e: Element | null = el; e; e = e.parentElement) {
 		const tiers = e.getAttribute('data-t');
 		if (tiers !== null && !tiers.split(' ').includes(String(tier))) return false;
+		if (e.hasAttribute('popover') && !e.matches(':popover-open')) return false;
 	}
 	return true;
 }

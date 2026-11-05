@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
+import { shownIn } from '#lib/tiers';
 import Fixture from './Fixture.svelte';
 
 const link = (name: string) => page.getByRole('link', { name, exact: true });
@@ -76,5 +77,23 @@ describe('TierBar', () => {
 		link('Settings').element().focus();
 		resize(300);
 		await expect.poll(() => document.activeElement).toBe(trigger().element());
+	});
+
+	it('keeps focus when the menu it was in closes on a tier change', async () => {
+		render(Fixture, { width: 400, breakpoints: [500, 300] });
+		await trigger().click();
+		link('Settings').element().focus();
+		resize(200);
+		await expect.element(link('Settings')).not.toBeInTheDocument();
+		await expect.poll(() => document.activeElement).toBe(trigger().element());
+	});
+
+	it('counts an item in a closed menu as hidden', async () => {
+		render(Fixture, { width: 300 });
+		await expect.element(trigger()).toBeVisible();
+		const row = document.querySelector('[popover] [data-item=settings]')!;
+		expect(shownIn(row, 1)).toBe(false);
+		await trigger().click();
+		expect(shownIn(row, 1)).toBe(true);
 	});
 });
