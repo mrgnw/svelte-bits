@@ -1,6 +1,7 @@
 <script lang="ts" generics="T extends TierItem">
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { closeMenu, menuFallback, onMenuToggle, toggleMenu } from './menus.js';
 	import { menusOf, tierFocus, tierCount, tierCss, tiersWhere, type Mode, type TierGroup, type TierItem } from './tiers.js';
 
 	type Props = HTMLAttributes<HTMLElement> & {
@@ -24,7 +25,7 @@
 	const focus = tierFocus();
 
 	function closeAfterActivate(e: MouseEvent) {
-		if ((e.target as Element).closest('a[href], button')) (e.currentTarget as HTMLElement).hidePopover();
+		if ((e.target as Element).closest('a[href], button')) closeMenu(e.currentTarget as HTMLElement);
 	}
 </script>
 
@@ -32,7 +33,7 @@
 	{@html `<style>${css}</style>`}
 </svelte:head>
 
-<div class="tierbar-root" data-tierbar={id} style:container-name="tierbar-{id}" {@attach focus.attach} {@attach () => focus.check(css)}>
+<div class="tierbar-root" data-tierbar={id} style:container-name="tierbar-{id}" {@attach focus.attach} {@attach () => focus.check(css)} {@attach menuFallback}>
 	<svelte:element this={as} {...rest} class={['tierbar', className]} data-bar>
 		{#each groups as group (group.id)}
 			<div class="tierbar-group" data-group={group.id}>
@@ -56,12 +57,13 @@
 							aria-label={group.label}
 							data-current={menu.current || undefined}
 							style:anchor-name="--{menuId}"
+							onclick={(e) => toggleMenu(e.currentTarget)}
 						>
 							{#if trigger}{@render trigger(group, menu.current)}{:else}{group.label}{/if}
 						</button>
 						<!-- Clicks bubble from the links and buttons inside; Enter and Space on them fire click too. -->
 						<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
-						<div class="tierbar-menu" id={menuId} popover="auto" style:position-anchor="--{menuId}" onclick={closeAfterActivate}>
+						<div class="tierbar-menu" id={menuId} popover="auto" style:position-anchor="--{menuId}" onclick={closeAfterActivate} ontoggle={onMenuToggle}>
 							{#each menu.items as it (it.id)}
 								<span class="tierbar-slot" data-item={it.id} data-current={it.current || undefined}>
 									{@render item(it, 'menu', `${id}-${it.id}-menu-${menu.tiers[0]}`)}
@@ -79,6 +81,7 @@
 	.tierbar-root {
 		container-type: inline-size;
 		min-width: 0;
+		position: relative;
 	}
 
 	.tierbar,
@@ -103,7 +106,16 @@
 		color: inherit;
 	}
 
-	.tierbar-menu:popover-open {
+	.tierbar-menu {
+		display: none;
+	}
+
+	.tierbar-menu[data-open] {
+		position: absolute;
+		z-index: var(--tierbar-menu-z, 10);
+	}
+
+	.tierbar-menu:is(:popover-open, [data-open]) {
 		display: flex;
 		flex-direction: column;
 		gap: var(--tierbar-menu-gap, 0);

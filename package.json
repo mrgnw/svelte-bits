@@ -53,5 +53,8 @@
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
-	}
+	},
+	"browserslist": [
+		"baseline widely available"
+	]
 }

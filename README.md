@@ -121,7 +121,22 @@ Breakpoints are props, but a component's `<style>` cannot hold runtime values. `
 
 Focus handling needs to know when the tier changed. `matchMedia` cannot see container queries, so each tier's rule also sets `--tier` on the bar, and the code reads it with `getComputedStyle`. `--tier` is re-read when a ResizeObserver fires and when `breakpoints` change. The observer measures nothing, so the tier always comes from the same CSS that decides visibility.
 
-Limits: popover anchoring uses CSS anchor positioning (`position-area`); where unsupported, the menu falls back to the browser's default centred popover. A `TierBar` nested inside another keeps its own tiers, focus handling and menus.
+A `TierBar` nested inside another keeps its own tiers, focus handling and menus. See Browser support for the menu fallbacks.
+
+## Browser support
+
+Target: [Baseline](https://web.dev/baseline) widely available (`browserslist`: `baseline widely available`). Statuses below are from the `web-features` data on 2026-11-05. Features that are not widely available have a fallback.
+
+| Feature | Used for | Baseline | Fallback |
+|-|-|-|-|
+| Container size queries, range syntax | Picking the tier | Widely available (2025-08) | None needed |
+| `display: contents` on non-focusable elements | Item wrappers | Widely available (2022-07) | None needed |
+| `:not()` with complex selectors, `:is()` | Scoping tier rules, open-menu style | Widely available | None needed |
+| `ResizeObserver` | Signal to re-read the tier | Widely available | None needed |
+| Custom properties, `@supports`, flex `gap`, `color-mix()`, system colors | Styling | Widely available | None needed |
+| `popover`, `popovertarget`, `:popover-open` | Menus | Newly available (2025-01) | Without `popover`, the button toggles `data-open` on the menu, which is placed under the button relative to the bar; Escape, outside click and activating an item close it. |
+| CSS anchor positioning (`position-area`, `position-try-fallbacks`) | Menu placement | Not Baseline | Without it, the menu is placed under its button in JavaScript when it opens, flipped left or up to stay in the viewport. It does not follow the button while the page scrolls. |
+| `resize` (demo only) | Resizable demo frames | Not Baseline (no iOS) | The demo also has a width slider. |
 
 ## Development
 

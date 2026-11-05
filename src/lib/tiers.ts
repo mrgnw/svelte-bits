@@ -1,3 +1,5 @@
+import { closeMenu, isOpen } from './menus.js';
+
 /** How an item shows in one tier: in the bar with its label, in the bar as an icon, or in its group's menu. */
 export type Mode = 'inline' | 'icon' | 'menu';
 
@@ -122,7 +124,7 @@ export function shownIn(el: Element, tier: number): boolean {
 	for (let e: Element | null = el; e; e = e.parentElement) {
 		const tiers = e.getAttribute('data-t');
 		if (tiers !== null && !tiers.split(' ').includes(String(tier))) return false;
-		if (e.hasAttribute('popover') && !e.matches(':popover-open')) return false;
+		if (e.hasAttribute('popover') && !isOpen(e)) return false;
 		if (e.hasAttribute('data-tierbar')) break;
 	}
 	return true;
@@ -194,7 +196,7 @@ export function tierFocus() {
 		if (next === tier) return;
 		tier = next;
 		const from = last;
-		for (const menu of root.querySelectorAll<HTMLElement>(':popover-open')) if (own(root, menu)) menu.hidePopover();
+		for (const menu of root.querySelectorAll<HTMLElement>('[popover]')) if (own(root, menu) && isOpen(menu)) closeMenu(menu);
 		requestAnimationFrame(() => follow(from));
 	};
 
