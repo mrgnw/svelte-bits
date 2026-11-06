@@ -22,7 +22,7 @@ it('hydrates the server-rendered demo without mismatch and keeps menus working',
 	page.on('pageerror', (e) => messages.push(e.message));
 
 	const html = await (await fetch(server.resolvedUrls!.local[0])).text();
-	expect(html).toMatch(/@container tierbar-\S+ \(width >= 860px\)/);
+	expect(html).toMatch(/@container tierbar-\S+ \(width >= 920px\)/);
 	expect(html).toContain('popovertarget=');
 
 	await page.goto(server.resolvedUrls!.local[0]);

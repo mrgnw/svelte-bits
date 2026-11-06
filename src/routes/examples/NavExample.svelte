@@ -1,22 +1,23 @@
 <script lang="ts" module>
-	export const breakpoints = [640, 480, 340];
+	export const breakpoints = [680, 500, 360];
 </script>
 
 <script lang="ts">
 	import { TierBar, type Mode, type TierGroup, type TierItem } from '#lib';
+	import Icon from './Icon.svelte';
 
-	type Link = TierItem & { label: string; icon: string };
+	type Link = TierItem & { label: string };
 
 	const SECTIONS = [
-		{ id: 'home', label: 'Home', icon: '⌂' },
-		{ id: 'projects', label: 'Projects', icon: '▤' },
-		{ id: 'issues', label: 'Issues', icon: '◉' },
-		{ id: 'docs', label: 'Docs', icon: '❡' },
+		{ id: 'home', label: 'Home' },
+		{ id: 'projects', label: 'Projects' },
+		{ id: 'issues', label: 'Issues' },
+		{ id: 'docs', label: 'Docs' },
 	];
 	const ACCOUNT = [
-		{ id: 'profile', label: 'Profile', icon: '☺' },
-		{ id: 'settings', label: 'Settings', icon: '⚙' },
-		{ id: 'help', label: 'Help', icon: '?' },
+		{ id: 'profile', label: 'Profile' },
+		{ id: 'settings', label: 'Settings' },
+		{ id: 'help', label: 'Help' },
 	];
 
 	let here = $state('issues');
@@ -52,37 +53,55 @@
 				here = link.id;
 			}}
 		>
-			<span aria-hidden="true">{link.icon}</span>
+			<Icon name={link.id} />
 			{#if mode !== 'icon'}{link.label}{/if}
 		</a>
 	{/snippet}
-	{#snippet trigger()}<span aria-hidden="true">⋯</span>{/snippet}
+	{#snippet trigger()}<Icon name="more" />{/snippet}
 </TierBar>
 
 <style>
+	:global(.example-nav) {
+		--tierbar-gap: 0.125rem;
+		--tierbar-group-gap: 0.5rem;
+		--tierbar-menu-bg: var(--surface);
+		--tierbar-menu-color: var(--ink);
+		--tierbar-menu-border: 1px solid var(--line);
+		--tierbar-menu-radius: 0.75rem;
+		--tierbar-menu-padding: 0.375rem;
+	}
+
+	:global(.example-nav .tierbar-group:last-child) {
+		margin-inline-start: auto;
+	}
+
 	a,
 	:global(.example-nav .tierbar-trigger) {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
-		min-height: 2.25rem;
-		padding-inline: 0.625rem;
+		gap: 0.5rem;
+		min-height: 2.5rem;
+		padding-inline: 0.75rem;
 		border: 0;
-		border-radius: 0.375rem;
+		border-radius: 0.5rem;
 		background: none;
-		color: inherit;
+		color: var(--muted);
 		font: inherit;
+		font-weight: 500;
 		text-decoration: none;
 		cursor: pointer;
+		transition: background-color 0.12s, color 0.12s;
 	}
 
 	a:hover,
 	:global(.example-nav .tierbar-trigger:hover) {
-		background: color-mix(in srgb, currentColor 8%, transparent);
+		background: var(--hover);
+		color: var(--ink);
 	}
 
 	a[aria-current],
 	:global(.example-nav .tierbar-trigger[data-current]) {
-		background: color-mix(in srgb, #2563eb 16%, transparent);
+		background: var(--accent-soft);
+		color: var(--accent-ink);
 	}
 </style>
