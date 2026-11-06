@@ -1,9 +1,10 @@
 <script lang="ts">
+	import './code.css';
 	import Stage from './Stage.svelte';
 	import NavExample, { breakpoints as navBreakpoints } from './examples/NavExample.svelte';
-	import navSource from './examples/NavExample.svelte?raw';
 	import ToolbarExample, { breakpoints as toolbarBreakpoints } from './examples/ToolbarExample.svelte';
-	import toolbarSource from './examples/ToolbarExample.svelte?raw';
+
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -26,7 +27,7 @@
 		title="Navigation"
 		blurb="Sections shrink to icons, then the account links fold into one menu."
 		breakpoints={navBreakpoints}
-		source={navSource}
+		source={data.nav}
 	>
 		<NavExample />
 	</Stage>
@@ -35,7 +36,7 @@
 		title="Editor toolbar"
 		blurb="Same component, no links: toggle buttons, three groups, three menus."
 		breakpoints={toolbarBreakpoints}
-		source={toolbarSource}
+		source={data.toolbar}
 	>
 		<ToolbarExample />
 	</Stage>

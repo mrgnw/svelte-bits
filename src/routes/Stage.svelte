@@ -7,10 +7,9 @@
 		breakpoints,
 		source,
 		children,
-	}: { title: string; blurb: string; breakpoints: number[]; source: string; children: Snippet } = $props();
+	}: { title: string; blurb: string; breakpoints: number[]; source: { code: string; html: string }; children: Snippet } = $props();
 
 	const slug = $derived(title.toLowerCase().replaceAll(' ', '-'));
-	const code = $derived(source.replaceAll("'#lib'", "'svelte-components'"));
 
 	const MIN = 240;
 	const MAX = 1000;
@@ -59,7 +58,7 @@
 
 	async function copy() {
 		if (!navigator.clipboard) return;
-		await navigator.clipboard.writeText(code);
+		await navigator.clipboard.writeText(source.code);
 		copied = true;
 		setTimeout(() => (copied = false), 1500);
 	}
@@ -103,7 +102,7 @@
 	<details class="source">
 		<summary>Usage</summary>
 		<button type="button" onclick={copy}>{copied ? 'Copied' : 'Copy'}</button>
-		<pre><code>{code}</code></pre>
+		{@html source.html}
 	</details>
 </section>
 
@@ -329,12 +328,13 @@
 		display: none;
 	}
 
-	pre {
+	.source :global(pre) {
 		margin: 0;
 		padding: 0.75rem 1rem 1.25rem;
 		max-height: 32rem;
 		overflow: auto;
 		border-top: 1px solid var(--line);
+		background: none;
 		font: 0.8125rem/1.6 var(--mono);
 		tab-size: 2;
 	}

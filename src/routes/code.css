@@ -1,0 +1,2 @@
+@import '@twinkleplop/theme-github/light';
+@import '@twinkleplop/theme-github/dark' (prefers-color-scheme: dark);
