@@ -62,7 +62,7 @@ Motion, inside `@media (prefers-reduced-motion: no-preference)`: popover open/cl
 - `pnpm build` → svelte-package as scaffolded (the normal component, `dist/`). `src/lib/section-nav/index.ts` exports `SectionNav` as default and the `Section` type.
 - `pnpm build:ce` → `vite build --config vite.ce.config.ts`: `@sveltejs/vite-plugin-svelte` with `compilerOptions: { customElement: true, runes: true }`, lib build, entry `src/lib/section-nav/element.ts` (which imports `SectionNavElement.svelte` so the tag registers), `formats: ['es']`, file name `section-nav.js`, `outDir: 'dist-ce'`, gitignored. Target modern browsers (`build.target: 'esnext'`).
 - `pnpm build:all` runs both.
-- Dev server port 5241, `strictPort`, `host: true`, `allowedHosts: ['.example.ts.net']`.
+- Dev server port 5241, `strictPort`, `host: true`.
 
 ## Demo pages
 

@@ -1,6 +1,16 @@
 # svelte-components
 
-Reusable Svelte 5 components. The first is `TierBar`: a row of items that collapses through a fixed ladder of width tiers. In each tier an item is shown with its label, as an icon, or inside its group's menu. It suits navs, toolbars, action bars, filter rows and tab strips.
+Reusable Svelte 5 components.
+
+- `TierBar`: a row of items that collapses through a fixed ladder of width tiers. Each item shows with its label, as an icon, or inside its group's menu. `<TierBar as="nav" breakpoints={[600]} {groups}>{#snippet item(link, mode, variant)}...{/snippet}</TierBar>`
+- `SectionNav`: a sections sidebar that scans headings, tracks the active one while scrolling, and becomes a popover bar on narrow screens. `import SectionNav from 'svelte-components/section-nav'` then `<SectionNav>{@html content}</SectionNav>`. Also builds as a `<section-nav>` custom element with `pnpm build:ce`. See [docs/section-nav](docs/section-nav/README.md).
+
+## Built with
+
+- Svelte 5 (runes) and SvelteKit
+- `svelte-package` for the library, `publint` for the package check
+- vitest browser mode with Playwright (Chromium)
+- Cloudflare Workers static assets for the demo site
 
 > [!NOTE]
 > This project was built with heavy LLM assistance and should be considered proof-of-concept. Contributions are welcome, but I can't guarantee the accuracy of the code or that I will continue to maintain it. If there are any mistakes in attribution or anything else, please let me know.
@@ -12,16 +22,17 @@ Reusable Svelte 5 components. The first is `TierBar`: a row of items that collap
 
 ## Install
 
-The package is not on npm. Build it from a checkout and add it by path:
+The package is not on npm yet. Clone it anywhere, build it, and add it by path:
 
 ```sh
-SVELTE_COMPONENTS_DIR=~/dev/svelte-components
+REPO=$HOME/src/svelte-components
 ```
 
 ```sh
-pnpm --dir "$SVELTE_COMPONENTS_DIR" install
-pnpm --dir "$SVELTE_COMPONENTS_DIR" build
-pnpm add "$SVELTE_COMPONENTS_DIR"
+git clone https://github.com/mrgnw/svelte-components.git "$REPO"
+pnpm --dir "$REPO" install
+pnpm --dir "$REPO" build
+pnpm add "$REPO"
 ```
 
 ## Quick start
@@ -70,7 +81,7 @@ At 600px and wider every item is inline. Below 600px, Docs drops to an icon and 
 
 ## Demo
 
-The demo shows a nav and an editor toolbar with width sliders, a live readout of the tier and each item's mode, and the source of each example.
+The SectionNav demo is at /section-nav. The TierBar demo shows a nav and an editor toolbar with width sliders, a live readout of the tier and each item's mode, and the source of each example.
 
 ```sh
 pnpm install
@@ -102,6 +113,10 @@ pnpm build
 ```
 
 `pnpm test` runs unit tests in Node and browser tests in headless Chromium. Install the browser once with `pnpm exec playwright install chromium`.
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md).
 
 ## License
 

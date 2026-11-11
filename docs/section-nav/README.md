@@ -123,18 +123,6 @@ pnpm build:all
 
 The custom element's tag lives in `src/lib/section-nav/SectionNavElement.svelte`, a wrapper that only `build:ce` uses. Keep `<svelte:options customElement>` out of `SectionNav.svelte`: Svelte treats any component carrying it as a custom element, even in a normal build, and then injects its CSS from JS instead of putting it in the page.
 
-## Update the copies
-
-After changing the component, push `main`, then update each consumer:
-
-```sh
-cd ~/dev/pygorst && pnpm update section-nav
-```
-
-dmox embeds a vendored copy of the custom element; its README has the refresh command.
-
-Design details and the full spec: [SPEC.md](SPEC.md).
-
 ## License
 
 Private repository; no license yet.

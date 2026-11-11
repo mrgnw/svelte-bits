@@ -1,0 +1,16 @@
+# Roadmap
+
+- [ ] Extract floes: Floe, FloeItem, FloePill, FloeSubsection, Pack ([#1](https://github.com/mrgnw/svelte-components/issues/1))
+- [ ] CommandPalette ([#2](https://github.com/mrgnw/svelte-components/issues/2))
+- [ ] TopNav and MicrositeNav ([#3](https://github.com/mrgnw/svelte-components/issues/3))
+- [ ] PullToRefresh ([#4](https://github.com/mrgnw/svelte-components/issues/4))
+- [ ] ScoreSpark ([#5](https://github.com/mrgnw/svelte-components/issues/5))
+- [ ] EditableField ([#6](https://github.com/mrgnw/svelte-components/issues/6))
+- [ ] JsonTree ([#7](https://github.com/mrgnw/svelte-components/issues/7))
+- [ ] TierBar vertical orientation ([#8](https://github.com/mrgnw/svelte-components/issues/8))
+- [ ] RTL support for TierBar and SectionNav ([#9](https://github.com/mrgnw/svelte-components/issues/9))
+- [ ] Keyboard and a11y tests for TierBar ([#10](https://github.com/mrgnw/svelte-components/issues/10))
+- [ ] Keyboard and a11y tests for SectionNav ([#11](https://github.com/mrgnw/svelte-components/issues/11))
+- [ ] Storybook or a stories catalog ([#12](https://github.com/mrgnw/svelte-components/issues/12))
+- [ ] API reference table in docs ([#13](https://github.com/mrgnw/svelte-components/issues/13))
+- [ ] npm publish workflow ([#14](https://github.com/mrgnw/svelte-components/issues/14))
