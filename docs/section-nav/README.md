@@ -110,7 +110,7 @@ pnpm install
 pnpm dev
 ```
 
-The demo is at http://localhost:5241 (`src/routes/+page.svelte`). The plain HTML demo is `mockups/index.html`, which dmox serves.
+The demo is at http://localhost:5241 (`src/routes/+page.svelte`). The plain HTML demo is `docs/section-nav/mockups/index.html`, which dmox serves.
 
 ## Build
 
@@ -121,7 +121,7 @@ pnpm build:all
 - `pnpm build`: the Svelte component, packaged into `dist/`.
 - `pnpm build:ce`: the custom element, one ES module at `dist-ce/section-nav.js` (about 50 KB, 19 KB gzipped).
 
-The custom element's tag lives in `src/lib/SectionNavElement.svelte`, a wrapper that only `build:ce` uses. Keep `<svelte:options customElement>` out of `SectionNav.svelte`: Svelte treats any component carrying it as a custom element, even in a normal build, and then injects its CSS from JS instead of putting it in the page.
+The custom element's tag lives in `src/lib/section-nav/SectionNavElement.svelte`, a wrapper that only `build:ce` uses. Keep `<svelte:options customElement>` out of `SectionNav.svelte`: Svelte treats any component carrying it as a custom element, even in a normal build, and then injects its CSS from JS instead of putting it in the page.
 
 ## Update the copies
 

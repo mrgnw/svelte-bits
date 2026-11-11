@@ -2,8 +2,24 @@
 	"name": "svelte-components",
 	"version": "0.0.1",
 	"license": "MIT",
+	"description": "Reusable Svelte 5 components: TierBar, a width-tiered collapsing bar, and SectionNav, a scroll-tracking sections sidebar.",
+	"author": "Morgan Williams",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mrgnw/svelte-components.git"
+	},
+	"homepage": "https://github.com/mrgnw/svelte-components#readme",
+	"bugs": {
+		"url": "https://github.com/mrgnw/svelte-components/issues"
+	},
 	"keywords": [
-		"svelte"
+		"svelte",
+		"svelte5",
+		"components",
+		"navigation",
+		"tabs",
+		"sidebar",
+		"container-queries"
 	],
 	"files": [
 		"dist",
@@ -24,11 +40,16 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
+		},
+		"./section-nav": {
+			"types": "./dist/section-nav/index.d.ts",
+			"svelte": "./dist/section-nav/index.js"
 		}
 	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && pnpm run prepack",
+		"build:ce": "vite build --config vite.ce.config.ts",
 		"preview": "vite preview",
 		"site:preview": "pnpm build && wrangler dev --port 5263",
 		"ship": "pnpm build && wrangler deploy",
@@ -47,6 +68,7 @@
 		"@twinkleplop/core": "0.3.1",
 		"@twinkleplop/svelte": "^0.1.7",
 		"@twinkleplop/theme-github": "^0.2.4",
+		"@types/node": "^26.6.6",
 		"@vitest/browser-playwright": "^4.1.8",
 		"playwright": "^1.60.0",
 		"publint": "^0.3.21",

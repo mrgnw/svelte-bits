@@ -3,6 +3,8 @@ import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-cloudflare';
 import { sveltekit } from '@sveltejs/kit/vite';
 
+const allowedHosts = process.env.ALLOWED_HOSTS?.split(',').map((host) => host.trim()).filter(Boolean);
+
 export default defineConfig({
 	plugins: [
 		sveltekit({
@@ -19,12 +21,12 @@ export default defineConfig({
 	server: {
 		port: 5262,
 		strictPort: true,
-		allowedHosts: ['.example.ts.net']
+		...(allowedHosts && { allowedHosts })
 	},
 	preview: {
 		port: 5262,
 		strictPort: true,
-		allowedHosts: ['.example.ts.net']
+		...(allowedHosts && { allowedHosts })
 	},
 	test: {
 		expect: { requireAssertions: true },

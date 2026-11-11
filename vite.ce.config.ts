@@ -8,6 +8,6 @@ export default defineConfig({
 		outDir: 'dist-ce',
 		minify: false,
 		rolldownOptions: { output: { minify: true } },
-		lib: { entry: 'src/lib/element.ts', formats: ['es'], fileName: () => 'section-nav.js' }
+		lib: { entry: 'src/lib/section-nav/element.ts', formats: ['es'], fileName: () => 'section-nav.js' }
 	}
 });

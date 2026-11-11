@@ -1,6 +1,6 @@
 # SectionNav component spec
 
-One file `src/lib/SectionNav.svelte`, Svelte 5 runes, TypeScript, plain CSS (no Tailwind: the custom-element build runs in shadow DOM). Built two ways; see Builds.
+One file `src/lib/section-nav/SectionNav.svelte`, Svelte 5 runes, TypeScript, plain CSS (no Tailwind: the custom-element build runs in shadow DOM). Built two ways; see Builds.
 
 ## Props
 
@@ -14,7 +14,7 @@ let { sections, levels = 'h2,h3', key = 'sidebar', label = 'Sections' } = $props
 - `key` is the localStorage key for the collapsed state. Values `'collapsed'` or `''`.
 - `label` is the nav's `aria-label` and the mobile bar fallback text.
 
-Custom element options live in a thin wrapper, `src/lib/SectionNavElement.svelte`: `<svelte:options customElement={{ tag: 'section-nav', props: { sections: { type: 'Array' } } }} />`, which renders `<SectionNav {...props}><slot /></SectionNav>`. Keep the option out of `SectionNav.svelte`: Svelte treats any component with `customElement` options as a custom element even in a normal build, so its CSS gets injected from JS instead of extracted into the page.
+Custom element options live in a thin wrapper, `src/lib/section-nav/SectionNavElement.svelte`: `<svelte:options customElement={{ tag: 'section-nav', props: { sections: { type: 'Array' } } }} />`, which renders `<SectionNav {...props}><slot /></SectionNav>`. Keep the option out of `SectionNav.svelte`: Svelte treats any component with `customElement` options as a custom element even in a normal build, so its CSS gets injected from JS instead of extracted into the page.
 
 ## Markup
 
@@ -59,15 +59,15 @@ Motion, inside `@media (prefers-reduced-motion: no-preference)`: popover open/cl
 
 ## Builds
 
-- `pnpm build` → svelte-package as scaffolded (the normal component, `dist/`). `src/lib/index.ts` exports `SectionNav` as default and the `Section` type.
-- `pnpm build:ce` → `vite build --config vite.ce.config.ts`: `@sveltejs/vite-plugin-svelte` with `compilerOptions: { customElement: true, runes: true }`, lib build, entry `src/lib/element.ts` (which imports `SectionNavElement.svelte` so the tag registers), `formats: ['es']`, file name `section-nav.js`, `outDir: 'dist-ce'`, gitignored. Target modern browsers (`build.target: 'esnext'`).
+- `pnpm build` → svelte-package as scaffolded (the normal component, `dist/`). `src/lib/section-nav/index.ts` exports `SectionNav` as default and the `Section` type.
+- `pnpm build:ce` → `vite build --config vite.ce.config.ts`: `@sveltejs/vite-plugin-svelte` with `compilerOptions: { customElement: true, runes: true }`, lib build, entry `src/lib/section-nav/element.ts` (which imports `SectionNavElement.svelte` so the tag registers), `formats: ['es']`, file name `section-nav.js`, `outDir: 'dist-ce'`, gitignored. Target modern browsers (`build.target: 'esnext'`).
 - `pnpm build:all` runs both.
 - Dev server port 5241, `strictPort`, `host: true`, `allowedHosts: ['.example.ts.net']`.
 
 ## Demo pages
 
 - `src/routes/+page.svelte`: renders `<SectionNav sections={…}>` around a dozen tall sections with `h2` ids matching, two of them groups, each item 60vh tall so scrolling exercises tracking. Also one `<SectionNav>` without `sections` below that? No: one instance per page. Put the scan-mode demo in the mockup instead.
-- `mockups/index.html`: plain HTML, `<script type="module" src="/_dmox/section-nav.js"></script>`, `<section-nav style="--nav-top: 1rem">` wrapping ten tall `<section><h2>…</h2></section>` blocks with no ids, two `h1`-less groups made of `h2` + several `h3`. Served by dmox once dmox embeds the file. For local verification before that, copy `dist-ce/section-nav.js` and this file into a temp dir, change the script src to `./section-nav.js`, and serve the dir with any static server.
+- `docs/section-nav/mockups/index.html`: plain HTML, `<script type="module" src="/_dmox/section-nav.js"></script>`, `<section-nav style="--nav-top: 1rem">` wrapping ten tall `<section><h2>…</h2></section>` blocks with no ids, two `h1`-less groups made of `h2` + several `h3`. Served by dmox once dmox embeds the file. For local verification before that, copy `dist-ce/section-nav.js` and this file into a temp dir, change the script src to `./section-nav.js`, and serve the dir with any static server.
 
 ## Done when
 
