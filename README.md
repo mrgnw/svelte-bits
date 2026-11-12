@@ -1,6 +1,6 @@
 # svelte-components
 
-Reusable Svelte 5 components.
+Reusable Svelte 5 components, for developers building Svelte 5 sites who need responsive navigation and toolbars.
 
 - `TierBar`: a row of items that collapses through a fixed ladder of width tiers. Each item shows with its label, as an icon, or inside its group's menu. `<TierBar as="nav" breakpoints={[600]} {groups}>{#snippet item(link, mode, variant)}...{/snippet}</TierBar>`
 - `SectionNav`: a sections sidebar that scans headings, tracks the active one while scrolling, and becomes a popover bar on narrow screens. `import SectionNav from 'svelte-components/section-nav'` then `<SectionNav>{@html content}</SectionNav>`. Also builds as a `<section-nav>` custom element with `pnpm build:ce`. See [docs/section-nav](docs/section-nav/README.md).
