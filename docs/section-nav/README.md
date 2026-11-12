@@ -14,17 +14,24 @@ One Svelte component, built two ways: a normal Svelte component for SvelteKit si
 
 ## SvelteKit
 
-Install from GitHub. The package exports source, so there is no build step on install:
+The package is not on npm yet. Clone the repository, build it, and add it by path (see the [root README](../../README.md#install)):
 
 ```sh
-pnpm add github:mrgnw/section-nav
+REPO=$HOME/src/svelte-components
+```
+
+```sh
+git clone https://github.com/mrgnw/svelte-components.git "$REPO"
+pnpm --dir "$REPO" install
+pnpm --dir "$REPO" build
+pnpm add "$REPO"
 ```
 
 Pass the sections when you know them, so the nav is in the server-rendered HTML:
 
 ```svelte
 <script lang="ts">
-	import SectionNav, { type Section } from 'section-nav';
+	import SectionNav, { type Section } from 'svelte-components/section-nav';
 
 	const sections: Section[] = [
 		{ id: 'basics', title: 'Basics', group: true },
@@ -64,7 +71,7 @@ Load the custom element and wrap the page:
 </section-nav>
 ```
 
-dmox serves the file at `/_dmox/section-nav.js` for every mockup. Anywhere else, build it (below) and serve `dist-ce/section-nav.js` yourself.
+`/_dmox/section-nav.js` is the route the author's dmox mockup server uses; this repository does not serve it. Build the element (below) and serve `dist-ce/section-nav.js` from your own site, then point the `src` at it.
 
 The element scans its content for headings. When both levels exist, the first (`h2`) becomes a group heading and the second (`h3`) the items; with one level, every heading is an item. Headings without an `id` get one from their text (`Same title` becomes `same-title`, then `same-title-2`). It reads at most 200 headings. Scanned headings also get a scroll margin of `--nav-top`, so jumping to one clears a sticky header.
 
@@ -110,12 +117,13 @@ pnpm install
 pnpm dev
 ```
 
-The demo is at http://localhost:5241 (`src/routes/+page.svelte`). The plain HTML demo is `docs/section-nav/mockups/index.html`, which dmox serves.
+The SectionNav demo is at http://localhost:5262/section-nav (`src/routes/section-nav/+page.svelte`). The plain HTML demo is `docs/section-nav/mockups/index.html`; it loads the element from `/_dmox/section-nav.js`, so serve a built `dist-ce/section-nav.js` at that path to view it.
 
 ## Build
 
 ```sh
-pnpm build:all
+pnpm build
+pnpm build:ce
 ```
 
 - `pnpm build`: the Svelte component, packaged into `dist/`.
@@ -125,4 +133,4 @@ The custom element's tag lives in `src/lib/section-nav/SectionNavElement.svelte`
 
 ## License
 
-Private repository; no license yet.
+[MIT](../../LICENSE)
