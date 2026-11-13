@@ -20,7 +20,7 @@ No runtime dependencies. TypeScript types included. Minimal, overridable styles;
 
 ## Install
 
-This project is not published to npm. The existing npm package named `svelte-bits` belongs to a different project. Build this repository from GitHub, then add the local package to your Svelte 5 app.
+This project is not published to npm yet. It is named `@mrgnw/svelte-bits` because the unscoped npm name `svelte-bits` belongs to a different project. Build this repository from GitHub, then add the local package to your Svelte 5 app.
 
 Set the checkout location:
 
@@ -34,10 +34,10 @@ Run these from your app directory:
 git clone https://github.com/mrgnw/svelte-bits.git "$SVELTE_BITS_REPO"
 pnpm --dir "$SVELTE_BITS_REPO" install --frozen-lockfile
 pnpm --dir "$SVELTE_BITS_REPO" prepack
-pnpm add "svelte-bits@file:$SVELTE_BITS_REPO"
+pnpm add "@mrgnw/svelte-bits@file:$SVELTE_BITS_REPO"
 ```
 
-The package exports TierBar from `svelte-bits` and SectionNav from `svelte-bits/section-nav`. There is no `svelte-bits/tierbar` export. The examples below are complete Svelte components.
+The package exports TierBar from `@mrgnw/svelte-bits` and SectionNav from `@mrgnw/svelte-bits/section-nav`. There is no `@mrgnw/svelte-bits/tierbar` export. The examples below are complete Svelte components.
 
 ## TierBar
 
@@ -47,7 +47,7 @@ A navigation or toolbar row that responds to its **container**, so it also works
 
 ```svelte
 <script lang="ts">
-	import { TierBar, type TierGroup, type TierItem } from 'svelte-bits';
+	import { TierBar, type TierGroup, type TierItem } from '@mrgnw/svelte-bits';
 
 	type Link = TierItem & { label: string; href: string; icon: string };
 	const groups: TierGroup<Link>[] = [{
@@ -109,7 +109,7 @@ A sticky page-section sidebar with active-section tracking, a remembered collaps
 
 ```svelte
 <script lang="ts">
-	import SectionNav, { type Section } from 'svelte-bits/section-nav';
+	import SectionNav, { type Section } from '@mrgnw/svelte-bits/section-nav';
 
 	const sections: Section[] = [
 		{ id: 'install', title: 'Install' },
