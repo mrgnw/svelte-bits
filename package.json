@@ -1,5 +1,5 @@
 {
-	"name": "svelte-bits",
+	"name": "@mrgnw/svelte-bits",
 	"version": "0.0.1",
 	"license": "MIT",
 	"description": "Reusable Svelte 5 components: TierBar, a width-tiered collapsing bar, and SectionNav, a scroll-tracking sections sidebar.",

@@ -24,14 +24,14 @@ REPO=$HOME/src/svelte-bits
 git clone https://github.com/mrgnw/svelte-bits.git "$REPO"
 pnpm --dir "$REPO" install
 pnpm --dir "$REPO" build
-pnpm add "$REPO"
+pnpm add "@mrgnw/svelte-bits@file:$REPO"
 ```
 
 Pass the sections when you know them, so the nav is in the server-rendered HTML:
 
 ```svelte
 <script lang="ts">
-	import SectionNav, { type Section } from 'svelte-bits/section-nav';
+	import SectionNav, { type Section } from '@mrgnw/svelte-bits/section-nav';
 
 	const sections: Section[] = [
 		{ id: 'basics', title: 'Basics', group: true },
