@@ -9,9 +9,9 @@ Two focused Svelte 5 components for responsive navigation. Pick one at a time: a
 [![Svelte 5](https://img.shields.io/badge/Svelte-5-ff3e00?style=flat&logo=svelte&logoColor=white)](https://svelte.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-typed-3178c6?style=flat&logo=typescript&logoColor=white)](https://github.com/mrgnw/svelte-bits/tree/main/src/lib)
 
-[Live demo](https://svelte-components.xces.workers.dev/) · [Install](#install) · [Docs](docs/usage.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+[![A cursor drags TierBar's width slider: the navigation bar collapses from labels to icons and folds its account links into a menu, which opens. Then SectionNav highlights the section being read while the page scrolls, and dragging the window narrower turns its sidebar into a mobile bar with a popover list.](docs/media/hero.gif)](https://svelte-components.xces.workers.dev/)
 
-![TierBar collapsing from labels to icons and a menu, followed by SectionNav changing from a sidebar to a mobile popover bar.](docs/media/hero.gif)
+**[Open the live demo](https://svelte-components.xces.workers.dev/)** · [Watch in full resolution (MP4)](docs/media/hero.mp4) · [Install](#install) · [Docs](docs/usage.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
 No runtime dependencies. TypeScript types included. Minimal, overridable styles; TierBar renders your links and buttons through Svelte snippets.
 
@@ -43,7 +43,9 @@ The package exports TierBar from `@mrgnw/svelte-bits` and SectionNav from `@mrgn
 
 A navigation or toolbar row that responds to its **container**, so it also works inside a narrow panel on a wide screen. Set descending width breakpoints and choose each item's mode per tier: `inline`, `icon`, or `menu`. CSS container queries select the tier, including in server-rendered HTML.
 
-![TierBar's navigation demo narrowing through four width tiers, opening its account menu, and expanding again.](docs/media/tierbar.gif)
+![A cursor drags TierBar's width slider from 700px to 290px: the bar steps through tiers 0 to 3, sections shrink to icons, the account links fold into a menu that opens, and the bar expands again.](docs/media/tierbar.gif)
+
+Full resolution: [tierbar.mp4](docs/media/tierbar.mp4)
 
 ```svelte
 <script lang="ts">
@@ -105,7 +107,9 @@ At 480px and wider, Docs shows its label. Between 320px and 480px it shows its i
 
 A sticky page-section sidebar with active-section tracking, a remembered collapse state, and `j` / `k` navigation. Below 64rem it becomes a current-section bar with a popover list. Pass known sections for server-rendered navigation, or omit them to scan headings after mount.
 
-![SectionNav following a section link on desktop, changing to its mobile bar, and navigating from the popover.](docs/media/section-nav.gif)
+![SectionNav highlights the section being read as the page scrolls. A cursor drags the window from 1100px to 620px, the sidebar becomes a current-section bar, its popover list opens, and the window widens back to the sidebar.](docs/media/section-nav.gif)
+
+Full resolution: [section-nav.mp4](docs/media/section-nav.mp4)
 
 ```svelte
 <script lang="ts">
@@ -170,6 +174,16 @@ pnpm dev
 
 - [TierBar navigation and editor toolbar](http://localhost:5262/): resize either demo with its width slider and inspect its live tier readout.
 - [SectionNav](http://localhost:5262/section-nav): scroll, follow links, and narrow the browser below 64rem to try the mobile bar.
+
+The README loops and social preview in `docs/media` come from `scripts/record-demos.mjs`, which drives these demo routes with Playwright and encodes with ffmpeg:
+
+```sh
+pnpm dev --port 5290
+```
+
+```sh
+node scripts/record-demos.mjs
+```
 
 ## Contributing and roadmap
 
