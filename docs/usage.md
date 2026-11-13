@@ -22,7 +22,7 @@ An item is `{ id, current?, at? }` plus any fields your snippet needs.
 - `at` is the item's mode per tier.
 
 ```ts
-import type { TierItem } from 'svelte-components';
+import type { TierItem } from 'svelte-bits';
 
 type Link = TierItem & { label: string; href: string };
 
@@ -53,7 +53,7 @@ The three modes:
 To keep the current item labelled at every width, compute `at` from it:
 
 ```ts
-import type { Mode, TierItem } from 'svelte-components';
+import type { Mode, TierItem } from 'svelte-bits';
 
 const currentId = 'issues';
 const narrowing: Mode[] = ['inline', 'inline', 'icon'];
@@ -70,7 +70,7 @@ const sections: TierItem[] = ['home', 'projects', 'issues'].map((id) => ({
 Items live in groups. Each group renders its bar items, then its menu button. A group whose items are all `menu` in a tier collapses into that button. Tiers whose menu holds the same items share one button and popover.
 
 ```ts
-import type { TierGroup, TierItem } from 'svelte-components';
+import type { TierGroup, TierItem } from 'svelte-bits';
 
 type Tool = TierItem & { label: string };
 
@@ -92,7 +92,7 @@ const insertGroup: TierGroup<Tool> = {
 
 ```svelte
 <script lang="ts">
-	import { TierBar, type Mode, type TierGroup, type TierItem } from 'svelte-components';
+	import { TierBar, type Mode, type TierGroup, type TierItem } from 'svelte-bits';
 
 	type Tool = TierItem & { label: string; icon: string };
 

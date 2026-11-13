@@ -6,7 +6,7 @@ import toolbarSource from './examples/ToolbarExample.svelte?raw';
 const highlight = tokenize();
 
 function snippet(source: string) {
-	const code = source.replaceAll("'#lib'", "'svelte-components'");
+	const code = source.replaceAll("'#lib'", "'svelte-bits'");
 	return { code, html: to_html(code, highlight(code)) };
 }
 

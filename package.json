@@ -1,16 +1,16 @@
 {
-	"name": "svelte-components",
+	"name": "svelte-bits",
 	"version": "0.0.1",
 	"license": "MIT",
 	"description": "Reusable Svelte 5 components: TierBar, a width-tiered collapsing bar, and SectionNav, a scroll-tracking sections sidebar.",
 	"author": "Morgan Williams",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/mrgnw/svelte-components.git"
+		"url": "git+https://github.com/mrgnw/svelte-bits.git"
 	},
-	"homepage": "https://github.com/mrgnw/svelte-components#readme",
+	"homepage": "https://github.com/mrgnw/svelte-bits#readme",
 	"bugs": {
-		"url": "https://github.com/mrgnw/svelte-components/issues"
+		"url": "https://github.com/mrgnw/svelte-bits/issues"
 	},
 	"keywords": [
 		"svelte",

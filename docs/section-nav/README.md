@@ -17,11 +17,11 @@ One Svelte component, built two ways: a normal Svelte component for SvelteKit si
 The package is not on npm yet. Clone the repository, build it, and add it by path (see the [root README](../../README.md#install)):
 
 ```sh
-REPO=$HOME/src/svelte-components
+REPO=$HOME/src/svelte-bits
 ```
 
 ```sh
-git clone https://github.com/mrgnw/svelte-components.git "$REPO"
+git clone https://github.com/mrgnw/svelte-bits.git "$REPO"
 pnpm --dir "$REPO" install
 pnpm --dir "$REPO" build
 pnpm add "$REPO"
@@ -31,7 +31,7 @@ Pass the sections when you know them, so the nav is in the server-rendered HTML:
 
 ```svelte
 <script lang="ts">
-	import SectionNav, { type Section } from 'svelte-components/section-nav';
+	import SectionNav, { type Section } from 'svelte-bits/section-nav';
 
 	const sections: Section[] = [
 		{ id: 'basics', title: 'Basics', group: true },
