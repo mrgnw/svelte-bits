@@ -14,3 +14,4 @@
 - [ ] Storybook or a stories catalog ([#12](https://github.com/mrgnw/svelte-bits/issues/12))
 - [ ] API reference table in docs ([#13](https://github.com/mrgnw/svelte-bits/issues/13))
 - [ ] npm publish workflow ([#14](https://github.com/mrgnw/svelte-bits/issues/14))
+- [ ] Pick a better project name ([#18](https://github.com/mrgnw/svelte-bits/issues/18))
