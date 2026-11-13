@@ -3,7 +3,7 @@
 Reusable Svelte 5 components, for developers building Svelte 5 sites who need responsive navigation and toolbars.
 
 - `TierBar`: a row of items that collapses through a fixed ladder of width tiers. Each item shows with its label, as an icon, or inside its group's menu. `<TierBar as="nav" breakpoints={[600]} {groups}>{#snippet item(link, mode, variant)}...{/snippet}</TierBar>`
-- `SectionNav`: a sections sidebar that scans headings, tracks the active one while scrolling, and becomes a popover bar on narrow screens. `import SectionNav from 'svelte-components/section-nav'` then `<SectionNav>{@html content}</SectionNav>`. Also builds as a `<section-nav>` custom element with `pnpm build:ce`. See [docs/section-nav](docs/section-nav/README.md).
+- `SectionNav`: a sections sidebar that scans headings, tracks the active one while scrolling, and becomes a popover bar on narrow screens. `import SectionNav from 'svelte-bits/section-nav'` then `<SectionNav>{@html content}</SectionNav>`. Also builds as a `<section-nav>` custom element with `pnpm build:ce`. See [docs/section-nav](docs/section-nav/README.md).
 
 ## Built with
 
@@ -25,11 +25,11 @@ Reusable Svelte 5 components, for developers building Svelte 5 sites who need re
 The package is not on npm yet. Clone it anywhere, build it, and add it by path:
 
 ```sh
-REPO=$HOME/src/svelte-components
+REPO=$HOME/src/svelte-bits
 ```
 
 ```sh
-git clone https://github.com/mrgnw/svelte-components.git "$REPO"
+git clone https://github.com/mrgnw/svelte-bits.git "$REPO"
 pnpm --dir "$REPO" install
 pnpm --dir "$REPO" build
 pnpm add "$REPO"
@@ -39,7 +39,7 @@ pnpm add "$REPO"
 
 ```svelte
 <script lang="ts">
-	import { TierBar, type Mode, type TierGroup, type TierItem } from 'svelte-components';
+	import { TierBar, type Mode, type TierGroup, type TierItem } from 'svelte-bits';
 
 	type Link = TierItem & { label: string; href: string };
 
