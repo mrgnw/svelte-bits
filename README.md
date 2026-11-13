@@ -1,4 +1,4 @@
-# svelte-components
+# svelte-bits
 
 Reusable Svelte 5 components, for developers building Svelte 5 sites who need responsive navigation and toolbars.
 

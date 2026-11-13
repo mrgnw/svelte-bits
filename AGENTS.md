@@ -1,4 +1,4 @@
-# svelte-components
+# svelte-bits
 
 git: main-only
 
