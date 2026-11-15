@@ -116,10 +116,24 @@
 		});
 	}
 
+	function readCollapsed() {
+		try {
+			return localStorage.getItem(key) === 'collapsed';
+		} catch {
+			return false;
+		}
+	}
+
+	function saveCollapsed() {
+		try {
+			localStorage.setItem(key, collapsed ? 'collapsed' : '');
+		} catch {}
+	}
+
 	function toggle() {
 		const apply = async () => {
 			collapsed = !collapsed;
-			localStorage.setItem(key, collapsed ? 'collapsed' : '');
+			saveCollapsed();
 			await tick();
 		};
 		if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -155,7 +169,7 @@
 	}
 
 	onMount(() => {
-		collapsed = localStorage.getItem(key) === 'collapsed';
+		collapsed = readCollapsed();
 		if (!sections) scanned = scan();
 		aimAtHash();
 	});
