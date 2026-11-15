@@ -37,7 +37,7 @@ pnpm --dir "$SVELTE_BITS_REPO" prepack
 pnpm add "@mrgnw/svelte-bits@file:$SVELTE_BITS_REPO"
 ```
 
-The package exports TierBar from `@mrgnw/svelte-bits` and SectionNav from `@mrgnw/svelte-bits/section-nav`. There is no `@mrgnw/svelte-bits/tierbar` export. The examples below are complete Svelte components.
+The package exports TierBar and SpatialImage from `@mrgnw/svelte-bits` and SectionNav from `@mrgnw/svelte-bits/section-nav`. There is no `@mrgnw/svelte-bits/tierbar` export. The examples below are complete Svelte components.
 
 ## TierBar
 
@@ -155,6 +155,26 @@ Use **one SectionNav per page**: it uses the fixed `sections-nav` id. Keep clien
 
 [Try SectionNav](https://svelte-components.xces.workers.dev/section-nav) · [Theming, behavior, and custom-element build](docs/section-nav/README.md)
 
+## SpatialImage
+
+A photo and its depth map, shown as a box you look into. The image shifts with device tilt, pointer, and scroll, and near parts move more than far ones. Without `depth` it is a plain image. It generates nothing: bring your own depth map and optional background layer.
+
+```svelte
+<script lang="ts">
+	import { SpatialImage } from '@mrgnw/svelte-bits';
+
+	const photo = '/photo.avif';
+	const depthMap = '/photo-depth.avif';
+	const description = 'A harbour at dusk';
+</script>
+
+<SpatialImage src={photo} depth={depthMap} alt={description} />
+```
+
+Give the root a size: the image fills it with `object-fit: cover`.
+
+[Props, background layer, spatial fullscreen, and fallbacks](docs/spatial-image.md)
+
 ## Accessibility and browser support
 
 - TierBar hides inactive variants with `display: none`. Its resize handling moves focus to a visible counterpart when the focused variant disappears. Menus close on Escape, outside clicks, and item activation.
@@ -174,6 +194,7 @@ pnpm dev
 
 - [TierBar navigation and editor toolbar](http://localhost:5262/): resize either demo with its width slider and inspect its live tier readout.
 - [SectionNav](http://localhost:5262/section-nav): scroll, follow links, and narrow the browser below 64rem to try the mobile bar.
+- [SpatialImage](http://localhost:5262/spatial-image): nine demo photos; tilt the device, move the pointer, or open the settings for strength, focus, and scroll.
 
 The README loops and social preview in `docs/media` come from `scripts/record-demos.mjs`, which drives these demo routes with Playwright and encodes with ffmpeg:
 
