@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { untrack, type Snippet } from 'svelte';
+	import Source from './Source.svelte';
 
 	let {
 		title,
@@ -17,7 +18,6 @@
 	let width = $state(untrack(() => Math.min(breakpoints[0] + 20, MAX)));
 	let tier = $state(0);
 	let modes = $state<[string, string][]>([]);
-	let copied = $state(false);
 
 	const ladder = $derived(
 		breakpoints
@@ -54,13 +54,6 @@
 			resized.disconnect();
 			changed.disconnect();
 		};
-	}
-
-	async function copy() {
-		if (!navigator.clipboard) return;
-		await navigator.clipboard.writeText(source.code);
-		copied = true;
-		setTimeout(() => (copied = false), 1500);
 	}
 </script>
 
@@ -99,11 +92,7 @@
 		</div>
 	</div>
 
-	<details class="source">
-		<summary>Usage</summary>
-		<button type="button" onclick={copy}>{copied ? 'Copied' : 'Copy'}</button>
-		{@html source.html}
-	</details>
+	<Source {source} />
 </section>
 
 <style>
@@ -292,50 +281,5 @@
 		background: none;
 		outline: 1px dashed var(--line);
 		outline-offset: -1px;
-	}
-
-	.source {
-		position: relative;
-		border: 1px solid var(--line);
-		border-radius: 0.75rem;
-		background: var(--code-bg);
-		overflow: clip;
-		min-width: 0;
-	}
-
-	summary {
-		padding: 0.875rem 1rem;
-		font-weight: 500;
-		cursor: pointer;
-	}
-
-	.source button {
-		position: absolute;
-		top: 0.5rem;
-		right: 0.625rem;
-		z-index: 1;
-		font: inherit;
-		font-size: 0.8125rem;
-		color: var(--ink);
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: 0.5rem;
-		padding: 0.25rem 0.75rem;
-		cursor: pointer;
-	}
-
-	.source:not([open]) button {
-		display: none;
-	}
-
-	.source :global(pre) {
-		margin: 0;
-		padding: 0.75rem 1rem 1.25rem;
-		max-height: 32rem;
-		overflow: auto;
-		border-top: 1px solid var(--line);
-		background: none;
-		font: 0.8125rem/1.6 var(--mono);
-		tab-size: 2;
 	}
 </style>

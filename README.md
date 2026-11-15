@@ -101,7 +101,7 @@ At 480px and wider, Docs shows its label. Between 320px and 480px it shows its i
 | Item `current` | Optional `boolean` | Adds `data-current` to the wrapper and any menu button holding the item. Your snippet sets `aria-current` or `aria-pressed`. |
 | Item `at` | `Mode` or `readonly Mode[]`; default `'inline'` | One mode for all tiers, or widest to narrowest. Last entry repeats. Arrays must be nonempty and no longer than the tier count. |
 
-[Try TierBar](https://svelte-components.xces.workers.dev/) · [Full usage and styling hooks](docs/usage.md) · [How TierBar works](docs/how-it-works.md)
+[Try TierBar](https://svelte-components.xces.workers.dev/tier-bar) · [Full usage and styling hooks](docs/usage.md) · [How TierBar works](docs/how-it-works.md)
 
 ## SectionNav
 
@@ -192,7 +192,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-- [TierBar navigation and editor toolbar](http://localhost:5262/): resize either demo with its width slider and inspect its live tier readout.
+- [TierBar navigation and editor toolbar](http://localhost:5262/tier-bar): resize either demo with its width slider and inspect its live tier readout.
 - [SectionNav](http://localhost:5262/section-nav): scroll, follow links, and narrow the browser below 64rem to try the mobile bar.
 - [SpatialImage](http://localhost:5262/spatial-image): nine demo photos; tilt the device, move the pointer, or open the settings for strength, focus, and scroll.
 

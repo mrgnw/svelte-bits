@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '../../theme.css';
-	import '../../code.css';
 	import SpatialExample from '../../examples/SpatialExample.svelte';
 
 	let { data } = $props();

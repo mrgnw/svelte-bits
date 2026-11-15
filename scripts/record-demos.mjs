@@ -144,7 +144,7 @@ const strip = (page, name, html) =>
 	);
 
 async function tierbar(browser, dir) {
-	const { page, inner } = await open(browser, '/', { windowed: false, width: W, height: H - STRIP });
+	const { page, inner } = await open(browser, '/tier-bar', { windowed: false, width: W, height: H - STRIP });
 	await inner.evaluate(() => {
 		const bench = document.querySelector('.bench');
 		window.scrollTo(0, bench.getBoundingClientRect().top + window.scrollY - 52);

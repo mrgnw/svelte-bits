@@ -21,11 +21,12 @@ it('hydrates the server-rendered demo without mismatch and keeps menus working',
 	page.on('console', (m) => messages.push(m.text()));
 	page.on('pageerror', (e) => messages.push(e.message));
 
-	const html = await (await fetch(server.resolvedUrls!.local[0])).text();
+	const url = new URL('tier-bar', server.resolvedUrls!.local[0]).href;
+	const html = await (await fetch(url)).text();
 	expect(html).toMatch(/@container tierbar-\S+ \(width >= 920px\)/);
 	expect(html).toContain('popovertarget=');
 
-	await page.goto(server.resolvedUrls!.local[0]);
+	await page.goto(url);
 	await page.waitForLoadState('networkidle');
 
 	await page.getByRole('slider').nth(1).fill('300');
@@ -42,6 +43,7 @@ it('hydrates the server-rendered demo without mismatch and keeps menus working',
 	expect(messages.filter((m) => /hydration|mismatch|error/i.test(m))).toEqual([]);
 	await page.close();
 }, 60_000);
+
 
 it('serves each demo photo at its slug and 404s an unknown one', async () => {
 	const base = server.resolvedUrls!.local[0];

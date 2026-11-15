@@ -12,7 +12,7 @@ pnpm exec playwright install chromium
 ALLOWED_HOSTS=.skate-in.ts.net pnpm dev --host 0.0.0.0
 ```
 
-Open http://localhost:5262 for TierBar or http://localhost:5262/section-nav for SectionNav. Stop the server when finished.
+Open http://localhost:5262/tier-bar for TierBar or http://localhost:5262/section-nav for SectionNav. Stop the server when finished.
 
 ## Checks
 
