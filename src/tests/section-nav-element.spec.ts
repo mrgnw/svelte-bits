@@ -1,22 +1,25 @@
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { chromium, type Browser, type Page } from 'playwright';
 import { build } from 'vite';
 
-const bundlePath = 'dist-ce/section-nav.js';
 const listLinks = (page: Page) => page.locator('section-nav').locator('nav a').allTextContents();
 
+let outDir: string;
 let browser: Browser;
 let bundle: string;
 
 beforeAll(async () => {
-	await build({ configFile: 'vite.ce.config.ts', logLevel: 'silent' });
-	bundle = await readFile(bundlePath, 'utf8');
+	outDir = await mkdtemp(join(tmpdir(), 'section-nav-ce-'));
+	await build({ configFile: 'vite.ce.config.ts', logLevel: 'silent', build: { outDir, emptyOutDir: true } });
+	bundle = await readFile(join(outDir, 'section-nav.js'), 'utf8');
 	browser = await chromium.launch();
 }, 120_000);
 
 afterAll(async () => {
-	await browser?.close();
+	await Promise.allSettled([browser?.close(), outDir && rm(outDir, { recursive: true, force: true })]);
 });
 
 async function open(markup: string) {
