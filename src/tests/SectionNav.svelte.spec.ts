@@ -35,4 +35,26 @@ describe('SectionNav', () => {
 		await expect.poll(() => document.getElementById('beta')!.getBoundingClientRect().top).toBeLessThan(150);
 		await expect.element(entry('Beta')).toHaveAttribute('aria-current', 'location');
 	});
+
+	it('tracks a section jumped to below a tall mobile bar under a site header', async () => {
+		await page.viewport(390, 800);
+		render(SectionNavFixture, { barTop: '61px', lineHeight: '4' });
+		await page.getByRole('button', { name: 'Alpha' }).click();
+		await entry('Beta').click();
+		const bar = document.querySelector('[popovertarget="sections-nav"]')!;
+		await expect
+			.poll(() => document.getElementById('beta')!.getBoundingClientRect().top)
+			.toBeGreaterThanOrEqual(bar.getBoundingClientRect().bottom);
+		await expect.element(entry('Beta')).toHaveAttribute('aria-current', 'location');
+	});
+
+	it('keeps a larger --nav-top as the mobile scroll margin', async () => {
+		await page.viewport(390, 800);
+		render(SectionNavFixture, { navTop: '200px' });
+		const margin = () => {
+			const heading = document.getElementById('beta');
+			return heading && getComputedStyle(heading).scrollMarginTop;
+		};
+		await expect.poll(margin).toBe('200px');
+	});
 });

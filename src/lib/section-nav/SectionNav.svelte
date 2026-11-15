@@ -15,13 +15,17 @@
 
 	const MAX_HEADINGS = 200;
 	const ACTIVE_LINE = 96;
+	const BELOW_BAR = 24;
 
 	let { sections, levels = 'h2,h3', key = 'sidebar', label = 'Sections', children }: Props = $props();
 
 	let scanned = $state<Section[]>([]);
 	let current = $state(0);
 	let collapsed = $state(false);
+	let barHeight = $state(0);
 	let nav: HTMLElement;
+	let side: HTMLElement;
+	let bar: HTMLElement;
 	let content: HTMLElement;
 	let frame = 0;
 	let aimed = '';
@@ -66,7 +70,7 @@
 				used.add(id);
 				heading.id = id;
 			}
-			heading.style.scrollMarginTop ||= 'var(--nav-top, 1rem)';
+			heading.style.scrollMarginTop ||= 'var(--section-top)';
 			return { id: heading.id, title, group: grouped && heading.matches(tags[0]) };
 		});
 	}
@@ -75,11 +79,17 @@
 		return innerHeight + scrollY >= document.documentElement.scrollHeight - 1;
 	}
 
+	function activeLine() {
+		if (!bar.offsetHeight) return ACTIVE_LINE;
+		return Math.max(ACTIVE_LINE, parseFloat(getComputedStyle(side).top) + bar.offsetHeight + BELOW_BAR);
+	}
+
 	async function update() {
+		const line = activeLine();
 		let reached = 0;
 		items.forEach((item, index) => {
 			const heading = document.getElementById(item.id);
-			if (heading && heading.getBoundingClientRect().top <= ACTIVE_LINE) reached = index;
+			if (heading && heading.getBoundingClientRect().top <= line) reached = index;
 		});
 		const target = items.findIndex((item) => item.id === aimed);
 		const heading = document.getElementById(aimed);
@@ -155,7 +165,7 @@
 <svelte:document {onkeydown} />
 
 <div class="layout" class:collapsed>
-	<div class="side">
+	<div class="side" bind:this={side}>
 		<button
 			class="handle"
 			aria-expanded={!collapsed}
@@ -169,7 +179,7 @@
 				><rect x="1.5" y="2.5" width="13" height="11" rx="2" /><path d="M6 2.5v11" /></svg
 			>
 		</button>
-		<button class="bar" popovertarget="sections-nav">
+		<button class="bar" popovertarget="sections-nav" bind:this={bar} bind:offsetHeight={barHeight}>
 			<span class="now">{items[current]?.title ?? label}</span><span aria-hidden="true">▾</span>
 		</button>
 		<nav id="sections-nav" aria-label={label} popover bind:this={nav}>
@@ -193,7 +203,7 @@
 			{/each}
 		</nav>
 	</div>
-	<div class="content" bind:this={content}>{@render children?.()}</div>
+	<div class="content" style:--bar-height={barHeight ? `${barHeight}px` : undefined} bind:this={content}>{@render children?.()}</div>
 </div>
 
 <style>
@@ -207,6 +217,10 @@
 
 	button:hover {
 		color: inherit;
+	}
+
+	.content {
+		--section-top: max(var(--nav-top, 1rem), calc(var(--bar-top, 0px) + var(--bar-height, 2.75rem) + 0.75rem));
 	}
 
 	.side {
@@ -327,6 +341,10 @@
 			display: grid;
 			grid-template-columns: var(--nav-width, 13rem) minmax(0, 1fr);
 			column-gap: 2.5rem;
+		}
+
+		.content {
+			--section-top: var(--nav-top, 1rem);
 		}
 
 		.layout.collapsed {

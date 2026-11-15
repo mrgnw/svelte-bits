@@ -73,7 +73,7 @@ Load the custom element and wrap the page:
 
 `/_dmox/section-nav.js` is the route the author's dmox mockup server uses; this repository does not serve it. Build the element (below) and serve `dist-ce/section-nav.js` from your own site, then point the `src` at it.
 
-The element scans its content for headings. When both levels exist, the first (`h2`) becomes a group heading and the second (`h3`) the items; with one level, every heading is an item. Headings without an `id` get one from their text (`Same title` becomes `same-title`, then `same-title-2`). It reads at most 200 headings. Scanned headings also get a scroll margin of `--nav-top`, so jumping to one clears a sticky header.
+The element scans its content for headings. When both levels exist, the first (`h2`) becomes a group heading and the second (`h3`) the items; with one level, every heading is an item. Headings without an `id` get one from their text (`Same title` becomes `same-title`, then `same-title-2`). It reads at most 200 headings. Scanned headings also get a scroll margin, so jumping to one clears a sticky header: `--nav-top` on desktop; below 64rem, `--bar-top` plus the measured height of the mobile bar plus 0.75rem, or `--nav-top` when that is larger.
 
 Custom elements do not render on the server, so the sidebar appears once the script runs.
 
@@ -95,8 +95,8 @@ Custom properties, all optional. On the Svelte component pass them as `--name="v
 | Property | Default | |
 |-|-|-|
 | `--nav-width` | `13rem` | Sidebar column width. |
-| `--nav-top` | `1rem` | Sticky offset of the desktop sidebar. Set it to your header height plus a gap. |
-| `--bar-top` | `0` | Sticky offset of the mobile bar. Set it to your header height. |
+| `--nav-top` | `1rem` | Sticky offset of the desktop sidebar. Set it to your header height plus a gap. Also the least scroll margin of scanned headings. |
+| `--bar-top` | `0` | Sticky offset of the mobile bar. Set it to your header height. Below 64rem, scanned headings stop under the bar. |
 | `--nav-muted` | `currentColor` at 55% | Link and icon color. |
 | `--nav-line` | `currentColor` at 15% | Borders. |
 | `--nav-bg` | `Canvas` | Mobile bar and popover background. |
@@ -105,7 +105,7 @@ The current link and hovered links take the inherited text color. Colors follow 
 
 ## Behavior notes
 
-- The current section is the last heading whose top is at most 96px below the viewport top.
+- The current section is the last heading whose top is at most 96px below the viewport top, or 24px below the mobile bar when that is lower.
 - Keys are ignored while a modifier is held, while typing in a field, and while a `<dialog>` is open.
 - Collapse runs inside a view transition unless the user prefers reduced motion.
 - One instance per page: the nav uses the fixed id `sections-nav`.

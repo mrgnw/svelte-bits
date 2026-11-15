@@ -10,7 +10,7 @@ let { sections, levels = 'h2,h3', key = 'sidebar', label = 'Sections' } = $props
 ```
 
 - `sections?: Section[]` in document order. `group: true` entries render as uppercase group headings above the following items (pygorst's `##` groups). When given, the nav renders from it, so SSR works. Not rescanned if it changes later.
-- `levels` is a comma-separated heading selector list. Used only when `sections` is absent: on mount, scan the slotted content for those headings. If the list has two tags and headings of both exist, the first tag is a group heading and the second an item; otherwise every heading is an item. Headings without an `id` get one slugified from their text (lowercase, non-alphanumerics to `-`, trimmed, `-2`, `-3` suffixes on duplicates). Scanned headings also get `style.scrollMarginTop ||= 'var(--nav-top, 1rem)'` so hash navigation clears a page header. Bound: at most 200 headings.
+- `levels` is a comma-separated heading selector list. Used only when `sections` is absent: on mount, scan the slotted content for those headings. If the list has two tags and headings of both exist, the first tag is a group heading and the second an item; otherwise every heading is an item. Headings without an `id` get one slugified from their text (lowercase, non-alphanumerics to `-`, trimmed, `-2`, `-3` suffixes on duplicates). Scanned headings also get `style.scrollMarginTop ||= 'var(--section-top)'` so hash navigation clears a page header. `.content` sets `--section-top` to `var(--nav-top, 1rem)` at 64rem and up, and below to `max(var(--nav-top, 1rem), calc(var(--bar-top, 0px) + var(--bar-height, 2.75rem) + 0.75rem))` to clear the mobile bar. `--bar-height` is the bar's `offsetHeight` (`bind:offsetHeight`), set inline on `.content` once measured. Slotted headings in the custom element inherit it from their slot. Bound: at most 200 headings.
 - `key` is the localStorage key for the collapsed state. Values `'collapsed'` or `''`.
 - `label` is the nav's `aria-label` and the mobile bar fallback text.
 
@@ -39,7 +39,7 @@ Sidebar icon: `<svg viewBox="0 0 16 16" width="16" height="16" fill="none" strok
 
 ## Behavior
 
-- Tracking: on `scroll` (rAF-throttled, one update per frame) and on mount, current = last item whose heading (`document.getElementById`, headings live in the light DOM in both builds) has `getBoundingClientRect().top <= 96`, else 0. Only items are tracked, not group headings. After current changes and when `nav.scrollHeight > nav.clientHeight`, `scrollIntoView({ block: 'nearest' })` the current link.
+- Tracking: on `scroll` (rAF-throttled, one update per frame) and on mount, current = last item whose heading (`document.getElementById`, headings live in the light DOM in both builds) has `getBoundingClientRect().top <= line`, else 0. `line` is 96, or when the mobile bar shows, the larger of 96 and its sticky offset plus its height plus 24. Only items are tracked, not group headings. After current changes and when `nav.scrollHeight > nav.clientHeight`, `scrollIntoView({ block: 'nearest' })` the current link.
 - Collapse: `collapsed` state, read from `localStorage.getItem(key) === 'collapsed'` on mount, written on toggle. Toggle runs inside `document.startViewTransition` when available and `prefers-reduced-motion` is not `reduce`; the callback must `await tick()` so the DOM change is inside the transition.
 - Keyboard, `<svelte:document onkeydown>`: ignore when meta/ctrl/alt is held, when `event.target.closest('input, textarea, select, [contenteditable]')`, or when `document.querySelector('dialog[open]')`. `b` toggles, `j` / `k` step to the next / previous item with `scrollIntoView({ block: 'start', behavior: 'instant' })`. `preventDefault` only for handled keys.
 - A click on a nav link while `nav.matches(':popover-open')` calls `nav.hidePopover()`.
@@ -47,7 +47,7 @@ Sidebar icon: `<svg viewBox="0 0 16 16" width="16" height="16" fill="none" strok
 
 ## Styles
 
-Host custom properties, all optional: `--nav-width` (13rem), `--nav-top` (1rem; sticky offset of the desktop sidebar and the scroll margin given to scanned headings), `--bar-top` (0; sticky offset of the mobile bar), `--nav-muted` (`color-mix(in oklab, currentColor 55%, transparent)`), `--nav-line` (`color-mix(in oklab, currentColor 15%, transparent)`), `--nav-bg` (`Canvas`). Text color is inherited. `:host { display: block }`.
+Host custom properties, all optional: `--nav-width` (13rem), `--nav-top` (1rem; sticky offset of the desktop sidebar and the least scroll margin given to scanned headings), `--bar-top` (0; sticky offset of the mobile bar), `--nav-muted` (`color-mix(in oklab, currentColor 55%, transparent)`), `--nav-line` (`color-mix(in oklab, currentColor 15%, transparent)`), `--nav-bg` (`Canvas`). Text color is inherited. `:host { display: block }`.
 
 Below 64rem: single column. `.side` is `position: sticky; top: var(--bar-top); z-index: 1`. `.handle` hidden. `.bar` is a full-width left-aligned button, 0.875rem text in `--nav-muted`, bottom border `--nav-line`, background `--nav-bg`, `.now` truncates. The nav is a popover panel: `position: fixed; inset: auto 1rem; top: calc(var(--bar-top, 0px) + 3rem); max-height: 70dvh; overflow: auto; padding: 1rem; border: 1px solid var(--nav-line); border-radius: .5rem; background: var(--nav-bg); color: inherit;` and a soft shadow. Item list gap 0.5rem.
 
