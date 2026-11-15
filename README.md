@@ -1,6 +1,6 @@
 # svelte-bits
 
-Two focused Svelte 5 components for responsive navigation. Pick one at a time: a toolbar that collapses by its own width, or a page navigator that follows your reader.
+Components I've found I reach for often in my Svelte projects
 
 [![CI](https://img.shields.io/github/actions/workflow/status/mrgnw/svelte-bits/ci.yml?branch=main&style=flat)](https://github.com/mrgnw/svelte-bits/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/github/license/mrgnw/svelte-bits?style=flat)](LICENSE)
