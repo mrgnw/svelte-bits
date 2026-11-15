@@ -2,10 +2,25 @@ import { describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import { shownIn } from '../lib/tiers';
+import { expectNoAxeViolations } from './axe';
 import Fixture from './Fixture.svelte';
+import ToolbarFixture from './ToolbarFixture.svelte';
 
 const link = (name: string) => page.getByRole('link', { name, exact: true });
 const trigger = () => page.getByRole('button', { name: 'More sections' });
+const nameOf = (el: Element) => el.getAttribute('aria-label') ?? el.textContent!.trim();
+const tabOrder = async (limit = 20) => {
+	(document.activeElement as HTMLElement | null)?.blur();
+	const frame = document.querySelector('[data-testid=frame]')!;
+	const names: string[] = [];
+	for (let i = 0; i < limit; i++) {
+		await userEvent.keyboard('{Tab}');
+		const active = document.activeElement;
+		if (!active || !frame.contains(active)) break;
+		names.push(nameOf(active));
+	}
+	return names;
+};
 const resize = (width: number, frame = document.querySelector<HTMLElement>('[data-testid=frame]')!) => {
 	frame.style.width = `${width}px`;
 };
@@ -133,5 +148,87 @@ describe('TierBar', () => {
 		await expect.element(trigger()).not.toBeInTheDocument();
 		await expect.poll(() => document.activeElement?.textContent).toBe('Settings');
 		expect(document.querySelector(':popover-open')).toBe(null);
+	});
+
+	describe('Tab traversal', () => {
+		it('follows the visual order and skips hidden variants when wide', async () => {
+			render(Fixture, { width: 700 });
+			expect(await tabOrder()).toEqual(['Home', 'Docs', 'Settings', 'Help']);
+		});
+
+		it('visits the icon, then the menu button, when narrow', async () => {
+			render(Fixture, { width: 300 });
+			expect(await tabOrder()).toEqual(['Home', 'Docs', 'More sections']);
+		});
+
+		it('reaches menu items after the trigger once the menu is open', async () => {
+			render(Fixture, { width: 300 });
+			await trigger().click();
+			expect(await tabOrder()).toEqual(['Settings', 'Help']);
+		});
+
+		const FORMAT = ['Bold', 'Italic', 'Underline', 'Strike'];
+		it.each([
+			[1000, [...FORMAT, 'Link', 'Code', 'Quote', 'List', 'Undo', 'Redo']],
+			[800, [...FORMAT, 'Link', 'Code', 'Quote', 'List', 'Undo', 'Redo']],
+			[500, [...FORMAT, 'Insert', 'Undo', 'Redo']],
+			[300, [...FORMAT, 'Insert', 'History']],
+		])('keeps toolbar order at %ipx', async (width, expected) => {
+			render(ToolbarFixture, { width });
+			expect(await tabOrder()).toEqual(expected);
+		});
+	});
+
+	describe('accessible names', () => {
+		it('names every wide link by its label and marks the current one', async () => {
+			render(Fixture, { width: 700 });
+			for (const name of ['Home', 'Docs', 'Settings', 'Help']) await expect.element(link(name)).toBeVisible();
+			await expect.element(link('Home')).toHaveAttribute('aria-current', 'page');
+			await expect.element(link('Docs')).not.toHaveAttribute('aria-current');
+		});
+
+		it('keeps the name of an icon-mode item and names the menu button by its group', async () => {
+			render(Fixture, { width: 300 });
+			await expect.element(link('Docs')).toBeVisible();
+			expect(link('Docs').element().textContent).toBe('•');
+			await expect.element(link('Home')).toHaveAttribute('aria-current', 'page');
+			await expect.element(trigger()).toBeVisible();
+		});
+
+		it('names icon-mode toolbar buttons and keeps their pressed state', async () => {
+			render(ToolbarFixture, { width: 800 });
+			const button = (name: string) => page.getByRole('button', { name, exact: true });
+			for (const name of ['Bold', 'Link', 'Undo']) await expect.element(button(name)).toBeVisible();
+			expect(button('Bold').element().textContent!.trim()).toBe('');
+			await expect.element(button('Bold')).toHaveAttribute('aria-pressed', 'true');
+			await expect.element(button('Italic')).toHaveAttribute('aria-pressed', 'false');
+		});
+
+		it('names the toolbar menu buttons by their group', async () => {
+			render(ToolbarFixture, { width: 300 });
+			await expect.element(page.getByRole('button', { name: 'Insert', exact: true })).toBeVisible();
+			await expect.element(page.getByRole('button', { name: 'History', exact: true })).toBeVisible();
+		});
+	});
+
+	describe('axe', () => {
+		it.each([700, 300])('finds no violations in the nav example at %ipx', async (width) => {
+			render(Fixture, { width });
+			await expect.element(link('Home')).toBeVisible();
+			await expectNoAxeViolations();
+		});
+
+		it('finds no violations with the nav menu open', async () => {
+			render(Fixture, { width: 300 });
+			await trigger().click();
+			await expect.element(link('Settings')).toBeVisible();
+			await expectNoAxeViolations();
+		});
+
+		it.each([1000, 800, 500, 300])('finds no violations in the toolbar example at %ipx', async (width) => {
+			render(ToolbarFixture, { width });
+			await expect.element(page.getByRole('button', { name: 'Bold', exact: true })).toBeVisible();
+			await expectNoAxeViolations();
+		});
 	});
 });
