@@ -9,9 +9,9 @@ Components I've found I reach for often in my Svelte projects
 [![Svelte 5](https://img.shields.io/badge/Svelte-5-ff3e00?style=flat&logo=svelte&logoColor=white)](https://svelte.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-typed-3178c6?style=flat&logo=typescript&logoColor=white)](https://github.com/mrgnw/svelte-bits/tree/main/src/lib)
 
-[![A cursor drags TierBar's width slider: the navigation bar collapses from labels to icons and folds its account links into a menu, which opens. Then SectionNav highlights the section being read while the page scrolls, and dragging the window narrower turns its sidebar into a mobile bar with a popover list.](docs/media/hero.gif)](https://svelte-components.xces.workers.dev/)
+[![A cursor drags TierBar's width slider: the navigation bar collapses from labels to icons and folds its account links into a menu, which opens. Then SectionNav highlights the section being read while the page scrolls, and dragging the window narrower turns its sidebar into a mobile bar with a popover list.](docs/media/hero.gif)](https://svelte-bits.xces.workers.dev/)
 
-**[Open the live demo](https://svelte-components.xces.workers.dev/)** · [Watch in full resolution (MP4)](docs/media/hero.mp4) · [Install](#install) · [Docs](docs/usage.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
+**[Open the live demo](https://svelte-bits.xces.workers.dev/)** · [Watch in full resolution (MP4)](docs/media/hero.mp4) · [Install](#install) · [Docs](docs/usage.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
 No runtime dependencies. TypeScript types included. Minimal, overridable styles; TierBar renders your links and buttons through Svelte snippets.
 
@@ -101,7 +101,7 @@ At 480px and wider, Docs shows its label. Between 320px and 480px it shows its i
 | Item `current` | Optional `boolean` | Adds `data-current` to the wrapper and any menu button holding the item. Your snippet sets `aria-current` or `aria-pressed`. |
 | Item `at` | `Mode` or `readonly Mode[]`; default `'inline'` | One mode for all tiers, or widest to narrowest. Last entry repeats. Arrays must be nonempty and no longer than the tier count. |
 
-[Try TierBar](https://svelte-components.xces.workers.dev/tier-bar) · [Full usage and styling hooks](docs/usage.md) · [How TierBar works](docs/how-it-works.md)
+[Try TierBar](https://svelte-bits.xces.workers.dev/tier-bar) · [Full usage and styling hooks](docs/usage.md) · [How TierBar works](docs/how-it-works.md)
 
 ## SectionNav
 
@@ -153,7 +153,7 @@ Full resolution: [section-nav.mp4](docs/media/section-nav.mp4)
 
 Use **one SectionNav per page**: it uses the fixed `sections-nav` id. Keep client-side rendering enabled for scroll tracking, keyboard shortcuts, and collapse behavior. Headings must exist when the component mounts; scanning does not observe later content changes.
 
-[Try SectionNav](https://svelte-components.xces.workers.dev/section-nav) · [Theming, behavior, and custom-element build](docs/section-nav/README.md)
+[Try SectionNav](https://svelte-bits.xces.workers.dev/section-nav) · [Theming, behavior, and custom-element build](docs/section-nav/README.md)
 
 ## SpatialImage
 

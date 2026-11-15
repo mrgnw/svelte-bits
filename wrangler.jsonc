@@ -1,5 +1,5 @@
 {
-	"name": "svelte-components",
+	"name": "svelte-bits",
 	"main": ".svelte-kit/cloudflare/_worker.js",
 	"compatibility_date": "2026-11-05",
 	"assets": {
