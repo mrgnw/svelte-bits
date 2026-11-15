@@ -42,3 +42,13 @@ it('hydrates the server-rendered demo without mismatch and keeps menus working',
 	expect(messages.filter((m) => /hydration|mismatch|error/i.test(m))).toEqual([]);
 	await page.close();
 }, 60_000);
+
+it('serves each demo photo at its slug and 404s an unknown one', async () => {
+	const base = server.resolvedUrls!.local[0];
+	const dog = await fetch(new URL('spatial-image/walking-dog', base));
+	expect(dog.status).toBe(200);
+	expect(await dog.text()).toContain('alt="Person walking a dog down a sunlit narrow street"');
+	const first = await (await fetch(new URL('spatial-image', base))).text();
+	expect(first).toContain('alt="Black and white portrait of a man framing his face with his hands"');
+	expect((await fetch(new URL('spatial-image/no-such-photo', base))).status).toBe(404);
+}, 60_000);
