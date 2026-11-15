@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
-import axe from 'axe-core';
+import { expectNoAxeViolations } from './axe.ts';
 import SectionNavFixture from './SectionNavFixture.svelte';
 
 const sidebar = () => page.getByRole('navigation', { name: 'Sections' });
@@ -14,11 +14,6 @@ function addFixed<T extends HTMLElement>(tag: string) {
 	const element = document.body.appendChild(document.createElement(tag)) as T;
 	element.style.cssText = 'position: fixed; top: 0; right: 0';
 	return element;
-}
-
-async function violations(context: Element) {
-	const { violations } = await axe.run(context);
-	return violations.map(({ id, nodes }) => `${id}: ${nodes.map((node) => node.target).join(' | ')}`);
 }
 
 describe('SectionNav', () => {
@@ -201,14 +196,14 @@ describe('SectionNav', () => {
 		it('has no axe violations on desktop', async () => {
 			const { container } = render(SectionNavFixture);
 			await expect.element(entry('Alpha')).toBeInTheDocument();
-			expect(await violations(container)).toEqual([]);
+			await expectNoAxeViolations(container);
 		});
 
 		it('has no axe violations collapsed', async () => {
 			localStorage.setItem(storageKey, 'collapsed');
 			const { container } = render(SectionNavFixture);
 			await expect.element(toggle()).toHaveAttribute('aria-expanded', 'false');
-			expect(await violations(container)).toEqual([]);
+			await expectNoAxeViolations(container);
 		});
 
 		it('has no axe violations on mobile with the popover open', async () => {
@@ -216,7 +211,7 @@ describe('SectionNav', () => {
 			const { container } = render(SectionNavFixture);
 			await page.getByRole('button', { name: 'Alpha' }).click();
 			await expect.element(list()).toBeVisible();
-			expect(await violations(container)).toEqual([]);
+			await expectNoAxeViolations(container);
 		});
 	});
 });
