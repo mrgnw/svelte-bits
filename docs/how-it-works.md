@@ -62,3 +62,33 @@ Each menu is a `popover="auto"` element right after its button in the DOM, so Ta
 - Activating a link or button inside the menu closes it.
 
 The menu is placed under its button with CSS anchor positioning (`anchor-name`, `position-anchor`, `position-area: bottom span-right`), flipping left or up when there is no room. Where anchor positioning or `popover` is missing, JavaScript takes over; see [Browser support](browser-support.md).
+
+# How SpatialImage works
+
+## A depth mesh, drawn by one shared WebGL context
+
+The photo is a texture on a grid of 480 x 480 quads (240 x 240 without 32-bit indices). The vertex shader samples the depth map and moves each vertex by `tilt * (depth - focus) * strength`. Near vertices move more than far ones, which reads as parallax. The image is zoomed so the largest shift, `strength * max(focus, 1 - focus)`, never shows past an edge.
+
+Each frame draws two layers with one program. The back layer is `back` over `backDepth`, or without `back` the photo again. Its depth is blurred in the vertex shader (5 x 5 taps, 6 texels apart), so it warps smoothly instead of stretching. The depth buffer is then cleared and the front layer, the photo over `depth`, is drawn on top with alpha blending.
+
+The front layer's depth is dilated by 4 texels on load, so near depth covers the rim of the near object. Its fragment shader walks 3 texels either side along the tilt direction. Where the depth jump times `strength * |tilt|` would open a gap wider than about 0.3% of the box, the fragment fades out. The fade is feathered over those 3 texels, so the cut has no stair steps. At zero tilt nothing fades and the frame equals the photo.
+
+One hidden WebGL canvas is shared by every instance and reference-counted. Each instance owns its textures (two, or four with `back`), draws into the shared canvas, and copies the frame to its own 2D canvas. This stays under the browser limit on live contexts. The last instance to unmount frees the program and buffers. A lost context shows the flat image, and each instance reloads its scene when the context is restored.
+
+Images load with `crossOrigin = 'anonymous'`, are scaled to `textureSize` on a 2D canvas, and are uploaded. Depth is read from the red channel at 8 bits.
+
+## Tilt
+
+Tilt is `{ x, y }`, each from -1 to 1, clamped to the unit disc. Each frame:
+
+1. Pick the primary source: a drag in progress, else device orientation once it has a reading, else the cursor, else neutral.
+2. Add the scroll source to `y`: the image centre relative to the viewport centre, times `scroll`.
+3. Clamp.
+4. Ease toward the target with a frame-rate independent exponential. The half-life is 100 ms and one step is capped at 100 ms.
+5. Draw. Stop when the tilt is settled.
+
+The loop runs only while the image intersects the viewport, the document is visible and the tilt is not settled. The scroll listener is passive and only wakes the loop. There is no `wheel` listener.
+
+## Spatial fullscreen
+
+No web API turns a 2D image and a depth map into a stereo scene, so true stereo needs a stereo HEIC made ahead of time. The component loads it into a hidden `<img>` to check it decodes, then calls `requestFullscreen()` on that element from the click. See [SpatialImage](spatial-image.md#spatial-fullscreen).

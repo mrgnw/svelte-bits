@@ -1,5 +1,7 @@
 # Using TierBar
 
+For `SpatialImage`, see [Using SpatialImage](spatial-image.md).
+
 ## Props
 
 | Prop | Type | Notes |

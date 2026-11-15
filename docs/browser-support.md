@@ -49,3 +49,29 @@ The position is set once on open. The menu does not follow the button while the 
 - It removes `HTMLElement.prototype.popover` before rendering, then checks the `data-open` menu opens under its button and closes on Escape (returning focus), on an outside click and after an item is activated.
 
 Chromium still runs native popover behaviour for the `popover` attribute, so the second test drives the fallback through its own functions rather than a real click on the button.
+
+# SpatialImage
+
+SpatialImage is a progressive enhancement. The server renders a flat `<img>`, and every feature below is detected. Where one is missing, the flat image stays. Statuses were not checked against `web-features`.
+
+| Feature | Used for | Without it |
+|-|-|-|
+| WebGL1 with vertex texture units | Depth mesh | Flat image, `onerror` runs |
+| Pointer events | Cursor and swipe | No cursor or swipe tilt |
+| `DeviceOrientationEvent` | Tilt | `motion` is `'unsupported'` |
+| `DeviceOrientationEvent.requestPermission` (Safari on iOS) | Motion permission | `motion` is `'granted'`, no prompt |
+| `IntersectionObserver`, `ResizeObserver` | Pause off screen, redraw on resize | Required |
+| `prefers-reduced-motion` | Turns cursor, tilt and scroll off | Motion stays on |
+| HEIC decoding | Probe of `spatial` | No spatial button |
+| `document.fullscreenEnabled`, `HTMLImageElement.prototype.requestFullscreen` | "View in spatial" | No spatial button |
+| `controls` on `<img>` (Safari 27, visionOS 26 behind a flag) | Native spatial control | Custom button only |
+
+The component does no user-agent detection.
+
+## Spatial fullscreen
+
+"View in spatial" shows only when the `spatial` HEIC decodes, `document.fullscreenEnabled` is true and `requestFullscreen` exists on `<img>`. The `<img controls>` path is used where `'controls' in HTMLImageElement.prototype`.
+
+Browsers that decode HEIC and inherit `requestFullscreen` from `Element`, such as macOS Safari and some Chromium builds, pass the gate and show the button. They present a flat image. iOS Safari on iPhone has no element fullscreen, so the button should not show there.
+
+None of this is verified on a Vision Pro. Chromium specs cover the gating and the `requestFullscreen` call with stubs only.
