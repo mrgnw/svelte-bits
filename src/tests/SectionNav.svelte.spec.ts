@@ -10,6 +10,20 @@ const toggle = () => page.getByRole('button', { name: 'Sections' });
 const list = () => document.getElementById('sections-nav')!;
 const storageKey = 'sidebar';
 
+function jumpTo(id: string) {
+	document.getElementById(id)!.scrollIntoView({ block: 'start', behavior: 'instant' });
+}
+
+async function expectShortcutsIgnored(press: (key: string) => Promise<void>) {
+	jumpTo('beta');
+	await expect.element(entry('Beta')).toHaveAttribute('aria-current', 'location');
+	for (const key of ['b', 'j', 'k']) {
+		await press(key);
+		await expect.element(toggle()).toHaveAttribute('aria-expanded', 'true');
+		await expect.element(entry('Beta')).toHaveAttribute('aria-current', 'location');
+	}
+}
+
 function addFixed<T extends HTMLElement>(tag: string) {
 	const element = document.body.appendChild(document.createElement(tag)) as T;
 	element.style.cssText = 'position: fixed; top: 0; right: 0';
@@ -74,7 +88,7 @@ describe('SectionNav', () => {
 	});
 
 	describe('keyboard shortcuts', () => {
-		it('j and k step between sections and clamp at the ends', async () => {
+		it('j steps forward and clamps at the last section', async () => {
 			render(SectionNavFixture);
 			await userEvent.keyboard('j');
 			await expect.element(entry('Beta')).toHaveAttribute('aria-current', 'location');
@@ -82,9 +96,17 @@ describe('SectionNav', () => {
 			await expect.element(entry('Gamma')).toHaveAttribute('aria-current', 'location');
 			await userEvent.keyboard('j');
 			await expect.element(entry('Gamma')).toHaveAttribute('aria-current', 'location');
+		});
+
+		it('k steps back and clamps at the first section', async () => {
+			render(SectionNavFixture);
+			jumpTo('gamma');
+			await expect.element(entry('Gamma')).toHaveAttribute('aria-current', 'location');
 			await userEvent.keyboard('k');
 			await expect.element(entry('Beta')).toHaveAttribute('aria-current', 'location');
-			await userEvent.keyboard('kk');
+			await userEvent.keyboard('k');
+			await expect.element(entry('Alpha')).toHaveAttribute('aria-current', 'location');
+			await userEvent.keyboard('k');
 			await expect.element(entry('Alpha')).toHaveAttribute('aria-current', 'location');
 		});
 
@@ -105,31 +127,20 @@ describe('SectionNav', () => {
 			const textarea = addFixed<HTMLTextAreaElement>('textarea');
 			for (const field of [input, textarea]) {
 				field.focus({ preventScroll: true });
-				await userEvent.keyboard('bjk');
+				await expectShortcutsIgnored((key) => userEvent.keyboard(key));
 				expect(field.value).toBe('bjk');
 			}
-			await expect.element(toggle()).toHaveAttribute('aria-expanded', 'true');
-			await expect.element(entry('Alpha')).toHaveAttribute('aria-current', 'location');
-			input.remove();
-			textarea.remove();
 		});
 
 		it('ignores shortcuts while a dialog is open', async () => {
 			render(SectionNavFixture);
-			const dialog = addFixed<HTMLDialogElement>('dialog');
-			dialog.show();
-			await userEvent.keyboard('bj');
-			await expect.element(toggle()).toHaveAttribute('aria-expanded', 'true');
-			await expect.element(entry('Alpha')).toHaveAttribute('aria-current', 'location');
-			dialog.remove();
+			addFixed<HTMLDialogElement>('dialog').show();
+			await expectShortcutsIgnored((key) => userEvent.keyboard(key));
 		});
 
 		it.each(['Control', 'Meta', 'Alt'])('ignores shortcuts with %s held', async (modifier) => {
 			render(SectionNavFixture);
-			await userEvent.keyboard(`{${modifier}>}b{/${modifier}}`);
-			await userEvent.keyboard(`{${modifier}>}j{/${modifier}}`);
-			await expect.element(toggle()).toHaveAttribute('aria-expanded', 'true');
-			await expect.element(entry('Alpha')).toHaveAttribute('aria-current', 'location');
+			await expectShortcutsIgnored((key) => userEvent.keyboard(`{${modifier}>}${key}{/${modifier}}`));
 		});
 	});
 
