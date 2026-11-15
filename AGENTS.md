@@ -1,6 +1,7 @@
 # svelte-bits
 
 git: main-only
+deploy-gate: off
 
 Reusable Svelte 5 components, packaged with `svelte-package`. Components live in `src/lib`, the demo in `src/routes`, browser-test fixtures in `src/tests`.
 
