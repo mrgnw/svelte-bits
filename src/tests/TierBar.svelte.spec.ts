@@ -230,5 +230,12 @@ describe('TierBar', () => {
 			await expect.element(page.getByRole('button', { name: 'Bold', exact: true })).toBeVisible();
 			await expectNoAxeViolations();
 		});
+
+		it('finds no violations with the toolbar menu open', async () => {
+			render(ToolbarFixture, { width: 300 });
+			await page.getByRole('button', { name: 'Insert', exact: true }).click();
+			await expect.element(page.getByRole('button', { name: 'Link', exact: true })).toBeVisible();
+			await expectNoAxeViolations();
+		});
 	});
 });
