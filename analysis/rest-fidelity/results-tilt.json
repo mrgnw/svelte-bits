@@ -1,0 +1,1868 @@
+{
+	"pinned": "75fde16ae8e78aeefe909a21c78791c9f4a94092",
+	"pinned_renderer_sha256": "23507d93f1402578507f0b9131fab51f1dc9bfb263dbcdf1a894b07adea89cd4",
+	"experimental_renderer_sha256": "9fb94815c2cd262a4b1d5fb1d313587f6c625b65f49b936a17b0c7c005c340b0",
+	"gate": "<0.5% px with max RGB delta >24 vs plain source",
+	"photos": {
+		"_80": {
+			"rest": {
+				"t1024-fixed": {
+					"over_24_pct": 27.438,
+					"pass": false
+				},
+				"t1024-max": {
+					"over_24_pct": 0.087,
+					"pass": true
+				},
+				"t1152-fixed": {
+					"over_24_pct": 27.447,
+					"pass": false
+				},
+				"t1152-max": {
+					"over_24_pct": 0.054,
+					"pass": true
+				},
+				"t1280-fixed": {
+					"over_24_pct": 27.463,
+					"pass": false
+				},
+				"t1280-max": {
+					"over_24_pct": 0.036,
+					"pass": true
+				},
+				"t1400-fixed": {
+					"over_24_pct": 27.549,
+					"pass": false
+				},
+				"t1400-max": {
+					"over_24_pct": 0.0,
+					"pass": true
+				}
+			},
+			"views": {
+				"fixed": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"none": {
+					"max_uncovered_pct": 1.4992,
+					"views_with_uncovered": 8,
+					"edge_band_px": {
+						"left": {
+							"left": 38,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 39,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 23,
+							"bottom": 8
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 27,
+							"right": 0,
+							"top": 16,
+							"bottom": 6
+						},
+						"up-right": {
+							"left": 0,
+							"right": 28,
+							"top": 16,
+							"bottom": 6
+						},
+						"down-left": {
+							"left": 27,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 28,
+							"top": 0,
+							"bottom": 11
+						}
+					}
+				},
+				"max": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"length": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				}
+			},
+			"paths": {
+				"fixed": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 2.284,
+						"max_step_over24_pct": 0.882
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 3.199,
+						"max_step_over24_pct": 1.769
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 7.952,
+						"max_step_over24_pct": 8.814
+					}
+				},
+				"none": {
+					"sweep-x": {
+						"max_uncovered_pct": 1.144,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 2.37,
+						"max_step_over24_pct": 1.0
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 1.4472,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 3.382,
+						"max_step_over24_pct": 1.943
+					},
+					"circle": {
+						"max_uncovered_pct": 1.4992,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 8.039,
+						"max_step_over24_pct": 8.962
+					}
+				},
+				"max": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 2.957,
+						"max_step_over24_pct": 1.692
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.0424,
+						"max_zoom_step": 0.0021,
+						"max_step_mean": 3.654,
+						"max_step_over24_pct": 2.027
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.0424,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0052,
+						"max_step_mean": 8.02,
+						"max_step_over24_pct": 9.066
+					}
+				},
+				"length": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 2.957,
+						"max_step_over24_pct": 1.692
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 3.894,
+						"max_step_over24_pct": 2.282
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 7.952,
+						"max_step_over24_pct": 8.814
+					}
+				}
+			}
+		},
+		"A7_00077-HDR": {
+			"rest": {
+				"t1024-fixed": {
+					"over_24_pct": 52.027,
+					"pass": false
+				},
+				"t1024-max": {
+					"over_24_pct": 2.703,
+					"pass": false
+				},
+				"t1152-fixed": {
+					"over_24_pct": 52.057,
+					"pass": false
+				},
+				"t1152-max": {
+					"over_24_pct": 1.898,
+					"pass": false
+				},
+				"t1280-fixed": {
+					"over_24_pct": 52.081,
+					"pass": false
+				},
+				"t1280-max": {
+					"over_24_pct": 1.37,
+					"pass": false
+				},
+				"t1400-fixed": {
+					"over_24_pct": 52.329,
+					"pass": false
+				},
+				"t1400-max": {
+					"over_24_pct": 0.154,
+					"pass": true
+				}
+			},
+			"views": {
+				"fixed": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"none": {
+					"max_uncovered_pct": 5.152,
+					"views_with_uncovered": 7,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 41,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 39,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 63,
+							"bottom": 60
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 29,
+							"top": 44,
+							"bottom": 42
+						},
+						"up-right": {
+							"left": 28,
+							"right": 0,
+							"top": 44,
+							"bottom": 42
+						},
+						"down-left": {
+							"left": 0,
+							"right": 29,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 28,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"max": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"length": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				}
+			},
+			"paths": {
+				"fixed": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 7.289,
+						"max_step_over24_pct": 7.692
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 8.71,
+						"max_step_over24_pct": 9.873
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 18.81,
+						"max_step_over24_pct": 23.564
+					}
+				},
+				"none": {
+					"sweep-x": {
+						"max_uncovered_pct": 2.0659,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 7.568,
+						"max_step_over24_pct": 8.1
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 4.9648,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 9.381,
+						"max_step_over24_pct": 10.464
+					},
+					"circle": {
+						"max_uncovered_pct": 5.5209,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 19.039,
+						"max_step_over24_pct": 23.085
+					}
+				},
+				"max": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 11.638,
+						"max_step_over24_pct": 13.981
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.0424,
+						"max_zoom_step": 0.0021,
+						"max_step_mean": 11.927,
+						"max_step_over24_pct": 14.122
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.0424,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0052,
+						"max_step_mean": 22.194,
+						"max_step_over24_pct": 28.378
+					}
+				},
+				"length": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 11.638,
+						"max_step_over24_pct": 13.981
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 13.623,
+						"max_step_over24_pct": 16.782
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 18.81,
+						"max_step_over24_pct": 23.564
+					}
+				}
+			}
+		},
+		"A7_00355": {
+			"rest": {
+				"t1024-fixed": {
+					"over_24_pct": 48.946,
+					"pass": false
+				},
+				"t1024-max": {
+					"over_24_pct": 0.263,
+					"pass": true
+				},
+				"t1152-fixed": {
+					"over_24_pct": 48.981,
+					"pass": false
+				},
+				"t1152-max": {
+					"over_24_pct": 0.175,
+					"pass": true
+				},
+				"t1280-fixed": {
+					"over_24_pct": 49.014,
+					"pass": false
+				},
+				"t1280-max": {
+					"over_24_pct": 0.135,
+					"pass": true
+				},
+				"t1400-fixed": {
+					"over_24_pct": 49.226,
+					"pass": false
+				},
+				"t1400-max": {
+					"over_24_pct": 0.023,
+					"pass": true
+				}
+			},
+			"views": {
+				"fixed": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"none": {
+					"max_uncovered_pct": 4.8404,
+					"views_with_uncovered": 8,
+					"edge_band_px": {
+						"left": {
+							"left": 26,
+							"right": 23,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 21,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 57,
+							"bottom": 62
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 18,
+							"right": 18,
+							"top": 40,
+							"bottom": 44
+						},
+						"up-right": {
+							"left": 17,
+							"right": 0,
+							"top": 40,
+							"bottom": 44
+						},
+						"down-left": {
+							"left": 18,
+							"right": 15,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 14,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"max": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"length": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				}
+			},
+			"paths": {
+				"fixed": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 2.985,
+						"max_step_over24_pct": 0.509
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 3.664,
+						"max_step_over24_pct": 1.341
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 8.717,
+						"max_step_over24_pct": 9.162
+					}
+				},
+				"none": {
+					"sweep-x": {
+						"max_uncovered_pct": 2.411,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 3.176,
+						"max_step_over24_pct": 0.76
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 4.8404,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 3.971,
+						"max_step_over24_pct": 1.699
+					},
+					"circle": {
+						"max_uncovered_pct": 5.051,
+						"max_band_px": 1056,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 9.332,
+						"max_step_over24_pct": 9.78
+					}
+				},
+				"max": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 7.12,
+						"max_step_over24_pct": 5.792
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.0424,
+						"max_zoom_step": 0.0021,
+						"max_step_mean": 6.634,
+						"max_step_over24_pct": 5.167
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.0424,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0052,
+						"max_step_mean": 13.603,
+						"max_step_over24_pct": 17.02
+					}
+				},
+				"length": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 7.12,
+						"max_step_over24_pct": 5.792
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 7.894,
+						"max_step_over24_pct": 7.07
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 8.717,
+						"max_step_over24_pct": 9.162
+					}
+				}
+			}
+		},
+		"_DSC2483": {
+			"rest": {
+				"t1024-fixed": {
+					"over_24_pct": 31.504,
+					"pass": false
+				},
+				"t1024-max": {
+					"over_24_pct": 0.76,
+					"pass": false
+				},
+				"t1152-fixed": {
+					"over_24_pct": 31.563,
+					"pass": false
+				},
+				"t1152-max": {
+					"over_24_pct": 0.522,
+					"pass": false
+				},
+				"t1280-fixed": {
+					"over_24_pct": 31.598,
+					"pass": false
+				},
+				"t1280-max": {
+					"over_24_pct": 0.343,
+					"pass": true
+				},
+				"t1400-fixed": {
+					"over_24_pct": 31.966,
+					"pass": false
+				},
+				"t1400-max": {
+					"over_24_pct": 0.021,
+					"pass": true
+				}
+			},
+			"views": {
+				"fixed": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"none": {
+					"max_uncovered_pct": 3.6996,
+					"views_with_uncovered": 7,
+					"edge_band_px": {
+						"left": {
+							"left": 23,
+							"right": 33,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 6,
+							"right": 23,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 34,
+							"bottom": 63
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 16,
+							"right": 25,
+							"top": 24,
+							"bottom": 44
+						},
+						"up-right": {
+							"left": 4,
+							"right": 16,
+							"top": 24,
+							"bottom": 44
+						},
+						"down-left": {
+							"left": 16,
+							"right": 21,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 4,
+							"right": 16,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"max": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"length": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				}
+			},
+			"paths": {
+				"fixed": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 3.208,
+						"max_step_over24_pct": 1.63
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 4.01,
+						"max_step_over24_pct": 2.139
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 8.551,
+						"max_step_over24_pct": 7.862
+					}
+				},
+				"none": {
+					"sweep-x": {
+						"max_uncovered_pct": 1.6589,
+						"max_band_px": 1063,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 3.387,
+						"max_step_over24_pct": 1.762
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 3.6996,
+						"max_band_px": 1063,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 4.243,
+						"max_step_over24_pct": 2.278
+					},
+					"circle": {
+						"max_uncovered_pct": 3.9613,
+						"max_band_px": 1063,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 8.749,
+						"max_step_over24_pct": 7.885
+					}
+				},
+				"max": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 7.075,
+						"max_step_over24_pct": 6.039
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.0424,
+						"max_zoom_step": 0.0021,
+						"max_step_mean": 6.04,
+						"max_step_over24_pct": 4.429
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.0424,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0052,
+						"max_step_mean": 11.272,
+						"max_step_over24_pct": 12.235
+					}
+				},
+				"length": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 7.075,
+						"max_step_over24_pct": 6.039
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 7.128,
+						"max_step_over24_pct": 5.841
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 8.551,
+						"max_step_over24_pct": 7.862
+					}
+				}
+			}
+		},
+		"_DSC3618": {
+			"rest": {
+				"t1024-fixed": {
+					"over_24_pct": 18.668,
+					"pass": false
+				},
+				"t1024-max": {
+					"over_24_pct": 0.095,
+					"pass": true
+				},
+				"t1152-fixed": {
+					"over_24_pct": 18.732,
+					"pass": false
+				},
+				"t1152-max": {
+					"over_24_pct": 0.066,
+					"pass": true
+				},
+				"t1280-fixed": {
+					"over_24_pct": 18.786,
+					"pass": false
+				},
+				"t1280-max": {
+					"over_24_pct": 0.043,
+					"pass": true
+				},
+				"t1400-fixed": {
+					"over_24_pct": 19.103,
+					"pass": false
+				},
+				"t1400-max": {
+					"over_24_pct": 0.005,
+					"pass": true
+				}
+			},
+			"views": {
+				"fixed": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"none": {
+					"max_uncovered_pct": 3.9788,
+					"views_with_uncovered": 8,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 41,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 31,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 62
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 44,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 29,
+							"top": 0,
+							"bottom": 44
+						},
+						"up-right": {
+							"left": 22,
+							"right": 0,
+							"top": 0,
+							"bottom": 44
+						},
+						"down-left": {
+							"left": 0,
+							"right": 29,
+							"top": 31,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 22,
+							"right": 0,
+							"top": 31,
+							"bottom": 0
+						}
+					}
+				},
+				"max": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				},
+				"length": {
+					"max_uncovered_pct": 0,
+					"views_with_uncovered": 0,
+					"edge_band_px": {
+						"left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"up-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-left": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						},
+						"down-right": {
+							"left": 0,
+							"right": 0,
+							"top": 0,
+							"bottom": 0
+						}
+					}
+				}
+			},
+			"paths": {
+				"fixed": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 1.982,
+						"max_step_over24_pct": 0.29
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 2.524,
+						"max_step_over24_pct": 0.559
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 5.599,
+						"max_step_over24_pct": 4.018
+					}
+				},
+				"none": {
+					"sweep-x": {
+						"max_uncovered_pct": 2.7505,
+						"max_band_px": 1063,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 1.977,
+						"max_step_over24_pct": 0.287
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 3.9788,
+						"max_band_px": 1063,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 2.536,
+						"max_step_over24_pct": 0.678
+					},
+					"circle": {
+						"max_uncovered_pct": 3.9788,
+						"max_band_px": 1063,
+						"zoom_min": 1,
+						"zoom_max": 1,
+						"max_zoom_step": 0,
+						"max_step_mean": 5.536,
+						"max_step_over24_pct": 3.98
+					}
+				},
+				"max": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 3.191,
+						"max_step_over24_pct": 1.281
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.0424,
+						"max_zoom_step": 0.0021,
+						"max_step_mean": 3.043,
+						"max_step_over24_pct": 1.246
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.0424,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0052,
+						"max_step_mean": 5.87,
+						"max_step_over24_pct": 5.041
+					}
+				},
+				"length": {
+					"sweep-x": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 3.191,
+						"max_step_over24_pct": 1.281
+					},
+					"sweep-diagonal": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.003,
+						"max_step_mean": 3.501,
+						"max_step_over24_pct": 1.683
+					},
+					"circle": {
+						"max_uncovered_pct": 0,
+						"max_band_px": 0,
+						"zoom_min": 1.06,
+						"zoom_max": 1.06,
+						"max_zoom_step": 0.0,
+						"max_step_mean": 5.599,
+						"max_step_over24_pct": 4.018
+					}
+				}
+			}
+		}
+	}
+}
