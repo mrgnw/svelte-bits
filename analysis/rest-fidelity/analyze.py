@@ -40,6 +40,42 @@ def score(first, second):
 	}
 
 
+CROP = 240
+CROP_CELLS = ['composite/t1024-overscan', 'composite/t1024-none', 'composite/t1400-none']
+
+
+def densest(mask):
+	window = np.lib.stride_tricks.sliding_window_view(mask.cumsum(0).cumsum(1), (CROP, CROP))
+	sums = window[:, :, -1, -1] - window[:, :, 0, -1] - window[:, :, -1, 0] + window[:, :, 0, 0]
+	y, x = np.unravel_index(np.argmax(sums), sums.shape)
+	return int(x), int(y)
+
+
+def heat(d):
+	return np.stack([np.clip(d * 4, 0, 255), np.where(d > GATE_DELTA, 255, 0), np.zeros_like(d)], 2).astype(
+		np.uint8
+	)
+
+
+def crop_sheet(stem, plain, images):
+	residual = delta(images['composite/t1024-none'], plain) > GATE_DELTA
+	x, y = densest(residual.astype(np.int64))
+	tiles = [plain[y : y + CROP, x : x + CROP]]
+	for key in CROP_CELLS:
+		image = images[key][y : y + CROP, x : x + CROP]
+		tiles += [image, heat(delta(image, tiles[0]))]
+	row = np.concatenate(tiles, 1)
+	Image.fromarray(row).resize((row.shape[1] * 2, row.shape[0] * 2), Image.Resampling.NEAREST).save(
+		OUT / 'sheets' / f'{stem}-rest-crops.png'
+	)
+	return {
+		'x': x,
+		'y': y,
+		'size': CROP,
+		'columns': ['plain', *[f'{k}{s}' for k in CROP_CELLS for s in ('', ' diff')]],
+	}
+
+
 def photo_scores(stem, capture):
 	base = OUT / stem
 	ref = {path.stem: rgb(path) for path in (base / 'ref').glob('*.png')}
@@ -61,22 +97,25 @@ def photo_scores(stem, capture):
 	assert controls['plain-repeat']['max'] == 0
 	assert not controls['inverted']['pass'] and not controls['framed-overscan-inverted-vs-framed']['pass']
 	cells = {}
+	images = {}
 	for path in capture['paths']:
 		for texture in capture['textures']:
 			for zoom in capture['zooms']:
-				image = rgb(base / path / f't{texture}-{zoom}.png')
+				image = images[f'{path}/t{texture}-{zoom}'] = rgb(base / path / f't{texture}-{zoom}.png')
 				framed = ref[f'framed-{zoom}']
 				cells[f'{path}/t{texture}-{zoom}'] = {
 					'vs_plain': score(image, plain),
 					'vs_framed': score(image, framed),
 				}
-	return {'controls': controls, 'cells': cells}
+	return {'controls': controls, 'cells': cells, 'crop': crop_sheet(stem, plain, images)}
 
 
 def main():
 	capture = json.loads((OUT / 'capture.json').read_text())
+	(OUT / 'sheets').mkdir(exist_ok=True)
 	results = {
-		'capture_sha256': capture['libHashes'],
+		'renderer_sha256': capture['libHashes'],
+		'pinned': capture['pinned'],
 		'gate': f'<{GATE_SHARE}% px with max RGB delta >{GATE_DELTA}',
 		'photos': {},
 	}
