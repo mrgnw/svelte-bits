@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
+import { create, freshDir } from './scratch.mjs';
 import { stripTypeScriptTypes, createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 const baseline = resolve(process.env.SPATIAL_BASELINE ?? '/Volumes/wd/cache/spatial-maker/research/51-baseline/2026-11-16');
-const out = resolve(process.env.REST_FIDELITY ?? '/Volumes/wd/cache/spatial-maker/research/51-rest-fidelity/2026-11-16');
+const out = await freshDir('REST_FIDELITY');
 const bits = resolve(process.env.SVELTE_BITS_ROOT ?? '/Users/m/dev/svelte-bits');
 const PINNED = '75fde16ae8e78aeefe909a21c78791c9f4a94092';
 const { chromium } = createRequire(join(bits, 'package.json'))('playwright');
@@ -54,9 +55,7 @@ const report = { browser: browser.version(), node: process.version, pinned: PINN
 
 async function save(name, data) {
 	const content = Buffer.from(data.split(',')[1], 'base64');
-	const path = join(out, name);
-	await mkdir(resolve(path, '..'), { recursive: true });
-	await writeFile(path, content);
+	await create(out, name, content);
 	report.files[name] = { bytes: content.length, sha256: digest(content) };
 }
 
@@ -190,7 +189,7 @@ try {
 		console.log(photo.stem, size);
 	}
 	assert.deepEqual(errors, []);
-	await writeFile(join(out, 'capture.json'), JSON.stringify(report, null, '\t') + '\n');
+	await create(out, 'capture.json', JSON.stringify(report, null, '\t') + '\n');
 } finally {
 	await browser.close();
 }

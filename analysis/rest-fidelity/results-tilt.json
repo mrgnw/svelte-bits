@@ -2,7 +2,13 @@
 	"pinned": "75fde16ae8e78aeefe909a21c78791c9f4a94092",
 	"pinned_renderer_sha256": "23507d93f1402578507f0b9131fab51f1dc9bfb263dbcdf1a894b07adea89cd4",
 	"experimental_renderer_sha256": "9fb94815c2cd262a4b1d5fb1d313587f6c625b65f49b936a17b0c7c005c340b0",
+	"chromium_args": [
+		"--use-angle=metal",
+		"--ignore-gpu-blocklist",
+		"--in-process-gpu"
+	],
 	"gate": "<0.5% px with max RGB delta >24 vs plain source",
+	"scope": "sampled tilts and paths at texture 1024; fixed focus 0.5 and pinned assets; Chromium/Metal",
 	"photos": {
 		"_80": {
 			"rest": {
@@ -261,117 +267,129 @@
 				"fixed": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 2.284,
-						"max_step_over24_pct": 0.882
+						"step_mean_avg": 2.256,
+						"step_mean_max": 2.284,
+						"step_over24_pct_avg": 0.836,
+						"step_over24_pct_max": 0.882
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 3.199,
-						"max_step_over24_pct": 1.769
+						"step_mean_avg": 3.173,
+						"step_mean_max": 3.199,
+						"step_over24_pct_avg": 1.721,
+						"step_over24_pct_max": 1.769
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 7.952,
-						"max_step_over24_pct": 8.814
+						"step_mean_avg": 6.635,
+						"step_mean_max": 7.952,
+						"step_over24_pct_avg": 6.745,
+						"step_over24_pct_max": 8.814
 					}
 				},
 				"none": {
 					"sweep-x": {
 						"max_uncovered_pct": 1.144,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 2.37,
-						"max_step_over24_pct": 1.0
+						"step_mean_avg": 2.353,
+						"step_mean_max": 2.37,
+						"step_over24_pct_avg": 0.966,
+						"step_over24_pct_max": 1.0
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 1.4472,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 3.382,
-						"max_step_over24_pct": 1.943
+						"step_mean_avg": 3.271,
+						"step_mean_max": 3.382,
+						"step_over24_pct_avg": 1.853,
+						"step_over24_pct_max": 1.943
 					},
 					"circle": {
 						"max_uncovered_pct": 1.4992,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 8.039,
-						"max_step_over24_pct": 8.962
+						"step_mean_avg": 6.788,
+						"step_mean_max": 8.039,
+						"step_over24_pct_avg": 6.958,
+						"step_over24_pct_max": 8.962
 					}
 				},
 				"max": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 2.957,
-						"max_step_over24_pct": 1.692
+						"step_mean_avg": 2.872,
+						"step_mean_max": 2.957,
+						"step_over24_pct_avg": 1.457,
+						"step_over24_pct_max": 1.692
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.0424,
 						"max_zoom_step": 0.0021,
-						"max_step_mean": 3.654,
-						"max_step_over24_pct": 2.027
+						"step_mean_avg": 3.333,
+						"step_mean_max": 3.654,
+						"step_over24_pct_avg": 1.912,
+						"step_over24_pct_max": 2.027
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.0424,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0052,
-						"max_step_mean": 8.02,
-						"max_step_over24_pct": 9.066
+						"step_mean_avg": 6.788,
+						"step_mean_max": 8.02,
+						"step_over24_pct_avg": 6.9,
+						"step_over24_pct_max": 9.066
 					}
 				},
 				"length": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 2.957,
-						"max_step_over24_pct": 1.692
+						"step_mean_avg": 2.872,
+						"step_mean_max": 2.957,
+						"step_over24_pct_avg": 1.457,
+						"step_over24_pct_max": 1.692
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 3.894,
-						"max_step_over24_pct": 2.282
+						"step_mean_avg": 3.494,
+						"step_mean_max": 3.894,
+						"step_over24_pct_avg": 2.101,
+						"step_over24_pct_max": 2.282
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 7.952,
-						"max_step_over24_pct": 8.814
+						"step_mean_avg": 6.635,
+						"step_mean_max": 7.952,
+						"step_over24_pct_avg": 6.745,
+						"step_over24_pct_max": 8.814
 					}
 				}
 			}
@@ -633,117 +651,129 @@
 				"fixed": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 7.289,
-						"max_step_over24_pct": 7.692
+						"step_mean_avg": 7.161,
+						"step_mean_max": 7.289,
+						"step_over24_pct_avg": 7.503,
+						"step_over24_pct_max": 7.692
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 8.71,
-						"max_step_over24_pct": 9.873
+						"step_mean_avg": 8.6,
+						"step_mean_max": 8.71,
+						"step_over24_pct_avg": 9.676,
+						"step_over24_pct_max": 9.873
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 18.81,
-						"max_step_over24_pct": 23.564
+						"step_mean_avg": 17.323,
+						"step_mean_max": 18.81,
+						"step_over24_pct_avg": 21.84,
+						"step_over24_pct_max": 23.564
 					}
 				},
 				"none": {
 					"sweep-x": {
 						"max_uncovered_pct": 2.0659,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 7.568,
-						"max_step_over24_pct": 8.1
+						"step_mean_avg": 7.418,
+						"step_mean_max": 7.568,
+						"step_over24_pct_avg": 7.92,
+						"step_over24_pct_max": 8.1
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 4.9648,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 9.381,
-						"max_step_over24_pct": 10.464
+						"step_mean_avg": 8.974,
+						"step_mean_max": 9.381,
+						"step_over24_pct_avg": 10.068,
+						"step_over24_pct_max": 10.464
 					},
 					"circle": {
 						"max_uncovered_pct": 5.5209,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 19.039,
-						"max_step_over24_pct": 23.085
+						"step_mean_avg": 17.611,
+						"step_mean_max": 19.039,
+						"step_over24_pct_avg": 21.9,
+						"step_over24_pct_max": 23.085
 					}
 				},
 				"max": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 11.638,
-						"max_step_over24_pct": 13.981
+						"step_mean_avg": 10.91,
+						"step_mean_max": 11.638,
+						"step_over24_pct_avg": 12.804,
+						"step_over24_pct_max": 13.981
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.0424,
 						"max_zoom_step": 0.0021,
-						"max_step_mean": 11.927,
-						"max_step_over24_pct": 14.122
+						"step_mean_avg": 9.825,
+						"step_mean_max": 11.927,
+						"step_over24_pct_avg": 10.789,
+						"step_over24_pct_max": 14.122
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.0424,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0052,
-						"max_step_mean": 22.194,
-						"max_step_over24_pct": 28.378
+						"step_mean_avg": 18.007,
+						"step_mean_max": 22.194,
+						"step_over24_pct_avg": 22.458,
+						"step_over24_pct_max": 28.378
 					}
 				},
 				"length": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 11.638,
-						"max_step_over24_pct": 13.981
+						"step_mean_avg": 10.91,
+						"step_mean_max": 11.638,
+						"step_over24_pct_avg": 12.804,
+						"step_over24_pct_max": 13.981
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 13.623,
-						"max_step_over24_pct": 16.782
+						"step_mean_avg": 11.146,
+						"step_mean_max": 13.623,
+						"step_over24_pct_avg": 12.93,
+						"step_over24_pct_max": 16.782
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 18.81,
-						"max_step_over24_pct": 23.564
+						"step_mean_avg": 17.323,
+						"step_mean_max": 18.81,
+						"step_over24_pct_avg": 21.84,
+						"step_over24_pct_max": 23.564
 					}
 				}
 			}
@@ -1005,117 +1035,129 @@
 				"fixed": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 2.985,
-						"max_step_over24_pct": 0.509
+						"step_mean_avg": 2.949,
+						"step_mean_max": 2.985,
+						"step_over24_pct_avg": 0.456,
+						"step_over24_pct_max": 0.509
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 3.664,
-						"max_step_over24_pct": 1.341
+						"step_mean_avg": 3.513,
+						"step_mean_max": 3.664,
+						"step_over24_pct_avg": 1.171,
+						"step_over24_pct_max": 1.341
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 8.717,
-						"max_step_over24_pct": 9.162
+						"step_mean_avg": 8.022,
+						"step_mean_max": 8.717,
+						"step_over24_pct_avg": 8.019,
+						"step_over24_pct_max": 9.162
 					}
 				},
 				"none": {
 					"sweep-x": {
 						"max_uncovered_pct": 2.411,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 3.176,
-						"max_step_over24_pct": 0.76
+						"step_mean_avg": 3.142,
+						"step_mean_max": 3.176,
+						"step_over24_pct_avg": 0.632,
+						"step_over24_pct_max": 0.76
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 4.8404,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 3.971,
-						"max_step_over24_pct": 1.699
+						"step_mean_avg": 3.781,
+						"step_mean_max": 3.971,
+						"step_over24_pct_avg": 1.446,
+						"step_over24_pct_max": 1.699
 					},
 					"circle": {
 						"max_uncovered_pct": 5.051,
-						"max_band_px": 1056,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 9.332,
-						"max_step_over24_pct": 9.78
+						"step_mean_avg": 8.476,
+						"step_mean_max": 9.332,
+						"step_over24_pct_avg": 8.689,
+						"step_over24_pct_max": 9.78
 					}
 				},
 				"max": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 7.12,
-						"max_step_over24_pct": 5.792
+						"step_mean_avg": 6.873,
+						"step_mean_max": 7.12,
+						"step_over24_pct_avg": 5.464,
+						"step_over24_pct_max": 5.792
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.0424,
 						"max_zoom_step": 0.0021,
-						"max_step_mean": 6.634,
-						"max_step_over24_pct": 5.167
+						"step_mean_avg": 5.57,
+						"step_mean_max": 6.634,
+						"step_over24_pct_avg": 3.624,
+						"step_over24_pct_max": 5.167
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.0424,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0052,
-						"max_step_mean": 13.603,
-						"max_step_over24_pct": 17.02
+						"step_mean_avg": 9.761,
+						"step_mean_max": 13.603,
+						"step_over24_pct_avg": 10.576,
+						"step_over24_pct_max": 17.02
 					}
 				},
 				"length": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 7.12,
-						"max_step_over24_pct": 5.792
+						"step_mean_avg": 6.873,
+						"step_mean_max": 7.12,
+						"step_over24_pct_avg": 5.464,
+						"step_over24_pct_max": 5.792
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 7.894,
-						"max_step_over24_pct": 7.07
+						"step_mean_avg": 6.757,
+						"step_mean_max": 7.894,
+						"step_over24_pct_avg": 5.449,
+						"step_over24_pct_max": 7.07
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 8.717,
-						"max_step_over24_pct": 9.162
+						"step_mean_avg": 8.022,
+						"step_mean_max": 8.717,
+						"step_over24_pct_avg": 8.019,
+						"step_over24_pct_max": 9.162
 					}
 				}
 			}
@@ -1377,117 +1419,129 @@
 				"fixed": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 3.208,
-						"max_step_over24_pct": 1.63
+						"step_mean_avg": 3.203,
+						"step_mean_max": 3.208,
+						"step_over24_pct_avg": 1.604,
+						"step_over24_pct_max": 1.63
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 4.01,
-						"max_step_over24_pct": 2.139
+						"step_mean_avg": 3.945,
+						"step_mean_max": 4.01,
+						"step_over24_pct_avg": 2.035,
+						"step_over24_pct_max": 2.139
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 8.551,
-						"max_step_over24_pct": 7.862
+						"step_mean_avg": 8.046,
+						"step_mean_max": 8.551,
+						"step_over24_pct_avg": 7.103,
+						"step_over24_pct_max": 7.862
 					}
 				},
 				"none": {
 					"sweep-x": {
 						"max_uncovered_pct": 1.6589,
-						"max_band_px": 1063,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 3.387,
-						"max_step_over24_pct": 1.762
+						"step_mean_avg": 3.311,
+						"step_mean_max": 3.387,
+						"step_over24_pct_avg": 1.714,
+						"step_over24_pct_max": 1.762
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 3.6996,
-						"max_band_px": 1063,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 4.243,
-						"max_step_over24_pct": 2.278
+						"step_mean_avg": 4.074,
+						"step_mean_max": 4.243,
+						"step_over24_pct_avg": 2.182,
+						"step_over24_pct_max": 2.278
 					},
 					"circle": {
 						"max_uncovered_pct": 3.9613,
-						"max_band_px": 1063,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 8.749,
-						"max_step_over24_pct": 7.885
+						"step_mean_avg": 8.14,
+						"step_mean_max": 8.749,
+						"step_over24_pct_avg": 7.111,
+						"step_over24_pct_max": 7.885
 					}
 				},
 				"max": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 7.075,
-						"max_step_over24_pct": 6.039
+						"step_mean_avg": 6.631,
+						"step_mean_max": 7.075,
+						"step_over24_pct_avg": 5.361,
+						"step_over24_pct_max": 6.039
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.0424,
 						"max_zoom_step": 0.0021,
-						"max_step_mean": 6.04,
-						"max_step_over24_pct": 4.429
+						"step_mean_avg": 5.426,
+						"step_mean_max": 6.04,
+						"step_over24_pct_avg": 3.937,
+						"step_over24_pct_max": 4.429
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.0424,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0052,
-						"max_step_mean": 11.272,
-						"max_step_over24_pct": 12.235
+						"step_mean_avg": 9.166,
+						"step_mean_max": 11.272,
+						"step_over24_pct_avg": 8.643,
+						"step_over24_pct_max": 12.235
 					}
 				},
 				"length": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 7.075,
-						"max_step_over24_pct": 6.039
+						"step_mean_avg": 6.631,
+						"step_mean_max": 7.075,
+						"step_over24_pct_avg": 5.361,
+						"step_over24_pct_max": 6.039
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 7.128,
-						"max_step_over24_pct": 5.841
+						"step_mean_avg": 6.607,
+						"step_mean_max": 7.128,
+						"step_over24_pct_avg": 5.449,
+						"step_over24_pct_max": 5.841
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 8.551,
-						"max_step_over24_pct": 7.862
+						"step_mean_avg": 8.046,
+						"step_mean_max": 8.551,
+						"step_over24_pct_avg": 7.103,
+						"step_over24_pct_max": 7.862
 					}
 				}
 			}
@@ -1749,117 +1803,129 @@
 				"fixed": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 1.982,
-						"max_step_over24_pct": 0.29
+						"step_mean_avg": 1.95,
+						"step_mean_max": 1.982,
+						"step_over24_pct_avg": 0.273,
+						"step_over24_pct_max": 0.29
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 2.524,
-						"max_step_over24_pct": 0.559
+						"step_mean_avg": 2.49,
+						"step_mean_max": 2.524,
+						"step_over24_pct_avg": 0.541,
+						"step_over24_pct_max": 0.559
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 5.599,
-						"max_step_over24_pct": 4.018
+						"step_mean_avg": 5.024,
+						"step_mean_max": 5.599,
+						"step_over24_pct_avg": 3.288,
+						"step_over24_pct_max": 4.018
 					}
 				},
 				"none": {
 					"sweep-x": {
 						"max_uncovered_pct": 2.7505,
-						"max_band_px": 1063,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 1.977,
-						"max_step_over24_pct": 0.287
+						"step_mean_avg": 1.94,
+						"step_mean_max": 1.977,
+						"step_over24_pct_avg": 0.276,
+						"step_over24_pct_max": 0.287
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 3.9788,
-						"max_band_px": 1063,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 2.536,
-						"max_step_over24_pct": 0.678
+						"step_mean_avg": 2.485,
+						"step_mean_max": 2.536,
+						"step_over24_pct_avg": 0.612,
+						"step_over24_pct_max": 0.678
 					},
 					"circle": {
 						"max_uncovered_pct": 3.9788,
-						"max_band_px": 1063,
 						"zoom_min": 1,
 						"zoom_max": 1,
 						"max_zoom_step": 0,
-						"max_step_mean": 5.536,
-						"max_step_over24_pct": 3.98
+						"step_mean_avg": 4.929,
+						"step_mean_max": 5.536,
+						"step_over24_pct_avg": 3.338,
+						"step_over24_pct_max": 3.98
 					}
 				},
 				"max": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 3.191,
-						"max_step_over24_pct": 1.281
+						"step_mean_avg": 3.151,
+						"step_mean_max": 3.191,
+						"step_over24_pct_avg": 1.136,
+						"step_over24_pct_max": 1.281
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.0424,
 						"max_zoom_step": 0.0021,
-						"max_step_mean": 3.043,
-						"max_step_over24_pct": 1.246
+						"step_mean_avg": 2.812,
+						"step_mean_max": 3.043,
+						"step_over24_pct_avg": 1.033,
+						"step_over24_pct_max": 1.246
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.0424,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0052,
-						"max_step_mean": 5.87,
-						"max_step_over24_pct": 5.041
+						"step_mean_avg": 5.157,
+						"step_mean_max": 5.87,
+						"step_over24_pct_avg": 3.632,
+						"step_over24_pct_max": 5.041
 					}
 				},
 				"length": {
 					"sweep-x": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 3.191,
-						"max_step_over24_pct": 1.281
+						"step_mean_avg": 3.151,
+						"step_mean_max": 3.191,
+						"step_over24_pct_avg": 1.136,
+						"step_over24_pct_max": 1.281
 					},
 					"sweep-diagonal": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.003,
-						"max_step_mean": 3.501,
-						"max_step_over24_pct": 1.683
+						"step_mean_avg": 3.286,
+						"step_mean_max": 3.501,
+						"step_over24_pct_avg": 1.372,
+						"step_over24_pct_max": 1.683
 					},
 					"circle": {
 						"max_uncovered_pct": 0,
-						"max_band_px": 0,
 						"zoom_min": 1.06,
 						"zoom_max": 1.06,
 						"max_zoom_step": 0.0,
-						"max_step_mean": 5.599,
-						"max_step_over24_pct": 4.018
+						"step_mean_avg": 5.024,
+						"step_mean_max": 5.599,
+						"step_over24_pct_avg": 3.288,
+						"step_over24_pct_max": 4.018
 					}
 				}
 			}

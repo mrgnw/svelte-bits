@@ -10,12 +10,12 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+from scratch import create, existing_dir, fresh_dir
+
 BASELINE = Path(
 	os.environ.get('SPATIAL_BASELINE', '/Volumes/wd/cache/spatial-maker/research/51-baseline/2026-11-16')
 )
-OUT = Path(
-	os.environ.get('TILT_OVERSCAN', '/Volumes/wd/cache/spatial-maker/research/51-tilt-overscan/2026-11-16')
-)
+CAPTURE = existing_dir('TILT_OVERSCAN')
 GATE_DELTA = 24
 GATE_SHARE = 0.5
 CROP = 240
@@ -42,22 +42,18 @@ def heat(d):
 	)
 
 
-def save_row(tiles, path):
-	row = np.concatenate(tiles, 1)
-	Image.fromarray(row).resize((row.shape[1] * 2, row.shape[0] * 2), Image.Resampling.NEAREST).save(path)
-
-
 def path_summary(frames):
 	steps = [f for f in frames if 'stepMean' in f]
 	zooms = [f['zoom'] for f in frames]
 	return {
 		'max_uncovered_pct': round(max(f['uncoveredPct'] for f in frames), 4),
-		'max_band_px': max(max(f['band'].values()) for f in frames),
 		'zoom_min': round(min(zooms), 4),
 		'zoom_max': round(max(zooms), 4),
 		'max_zoom_step': round(max(abs(a - b) for a, b in pairwise(zooms)), 4),
-		'max_step_mean': round(max(f['stepMean'] for f in steps), 3),
-		'max_step_over24_pct': round(max(f['stepOver24Pct'] for f in steps), 3),
+		'step_mean_avg': round(sum(f['stepMean'] for f in steps) / len(steps), 3),
+		'step_mean_max': round(max(f['stepMean'] for f in steps), 3),
+		'step_over24_pct_avg': round(sum(f['stepOver24Pct'] for f in steps) / len(steps), 3),
+		'step_over24_pct_max': round(max(f['stepOver24Pct'] for f in steps), 3),
 	}
 
 
@@ -82,9 +78,9 @@ def edge_bands(image):
 	}
 
 
-def photo_results(record):
+def photo_results(dest, record):
 	stem = record['stem']
-	base = OUT / stem
+	base = CAPTURE / stem
 	plain = rgb(BASELINE / 'renders' / stem / 'reference.png')
 	baseline_views = {p.stem: rgb(p) for p in (BASELINE / 'renders' / stem / 'baseline').glob('*.png')}
 	for view, image in baseline_views.items():
@@ -93,53 +89,73 @@ def photo_results(record):
 		)
 	assert np.array_equal(rgb(base / 'rest/t1024-fixed.png'), baseline_views['neutral'])
 	assert not gate(255 - plain, plain)['pass']
+	assert not magenta(plain).any(), f'{stem} source contains the clear colour'
 	rest = {key: gate(rgb(base / 'rest' / f'{key}.png'), plain) for key in record['rest']}
 	views = {}
-	assert not magenta(plain).any(), f'{stem} source contains the clear colour'
 	for mode, results in record['views'].items():
 		tilted = {view: r for view, r in results.items() if view != 'neutral'}
-		bands = {view: edge_bands(rgb(base / 'views' / mode / f'{view}.png')) for view in tilted}
 		views[mode] = {
 			'max_uncovered_pct': round(max(r['uncoveredPct'] for r in tilted.values()), 4),
 			'views_with_uncovered': sum(r['uncovered'] > 0 for r in tilted.values()),
-			'edge_band_px': bands,
+			'edge_band_px': {view: edge_bands(rgb(base / 'views' / mode / f'{view}.png')) for view in tilted},
 		}
 	paths = {
 		mode: {name: path_summary(frames) for name, frames in p.items()}
 		for mode, p in record['paths'].items()
 	}
-	sheet(stem, plain)
+	rest_sheet(dest, stem, plain)
 	return {'rest': rest, 'views': views, 'paths': paths}
 
 
-def sheet(stem, plain):
-	base = OUT / stem
-	height, width = plain.shape[:2]
-	corner = (0, 0)
-	tiles = []
+def rest_sheet(dest, stem, plain):
+	tiles = [plain[:CROP, :CROP]]
 	for key in ['t1024-fixed', 't1024-max', 't1400-max']:
-		image = rgb(base / 'rest' / f'{key}.png')[corner[1] : corner[1] + CROP, corner[0] : corner[0] + CROP]
-		tiles += [image, heat(delta(image, plain[:CROP, :CROP]))]
-	save_row([plain[:CROP, :CROP], *tiles], OUT / 'sheets' / f'{stem}-rest-corner.png')
-	edges = []
-	for mode in ['none', 'max', 'length', 'fixed']:
-		image = rgb(base / 'views' / mode / 'down-right.png')
-		edges.append(image[height - CROP :, width - CROP :])
-	save_row(edges, OUT / 'sheets' / f'{stem}-down-right-corner.png')
+		image = rgb(CAPTURE / stem / 'rest' / f'{key}.png')[:CROP, :CROP]
+		tiles += [image, heat(delta(image, tiles[0]))]
+	row = Image.fromarray(np.concatenate(tiles, 1))
+	save(
+		dest,
+		f'sheets/{stem}-rest-corner.png',
+		row.resize((row.width * 2, row.height * 2), Image.Resampling.NEAREST),
+	)
+
+
+def worst_view_sheet(dest, photos):
+	cell = (300, 460)
+	sheet = Image.new('RGB', (4 * cell[0], len(photos) * cell[1]), 'gray')
+	for row, (stem, result) in enumerate(photos.items()):
+		bands = result['views']['none']['edge_band_px']
+		view = max(bands, key=lambda name: max(bands[name].values()))
+		for column, mode in enumerate(['none', 'fixed', 'max', 'length']):
+			with Image.open(CAPTURE / stem / 'views' / mode / f'{view}.png') as image:
+				thumb = image.convert('RGB')
+			thumb.thumbnail(cell)
+			sheet.paste(thumb, (column * cell[0], row * cell[1]))
+	save(dest, 'sheets/worst-none-view-by-mode.png', sheet)
+
+
+def save(dest, relative, image):
+	with create(dest, relative) as file:
+		image.save(file, format='PNG')
 
 
 def main():
-	capture = json.loads((OUT / 'capture.json').read_text())
-	(OUT / 'sheets').mkdir(exist_ok=True)
+	capture = json.loads((CAPTURE / 'capture.json').read_text())
+	dest = fresh_dir('TILT_ANALYSIS')
+	photos = {r['stem']: photo_results(dest, r) for r in capture['photos']}
+	worst_view_sheet(dest, photos)
 	results = {
 		'pinned': capture['pinned'],
 		'pinned_renderer_sha256': capture['pinnedRendererSha256'],
 		'experimental_renderer_sha256': capture['experimentalRendererSha256'],
+		'chromium_args': capture['args'],
 		'gate': f'<{GATE_SHARE}% px with max RGB delta >{GATE_DELTA} vs plain source',
-		'photos': {r['stem']: photo_results(r) for r in capture['photos']},
+		'scope': 'sampled tilts and paths at texture 1024; fixed focus 0.5 and pinned assets; Chromium/Metal',
+		'photos': photos,
 	}
-	(OUT / 'results.json').write_text(json.dumps(results, indent='\t') + '\n')
-	print(json.dumps(results['photos'], indent=1))
+	with create(dest, 'results.json') as file:
+		file.write((json.dumps(results, indent='\t') + '\n').encode())
+	print(json.dumps(photos, indent=1))
 
 
 if __name__ == '__main__':

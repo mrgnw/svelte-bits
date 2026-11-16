@@ -9,12 +9,12 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+from scratch import create, existing_dir, fresh_dir
+
 BASELINE = Path(
 	os.environ.get('SPATIAL_BASELINE', '/Volumes/wd/cache/spatial-maker/research/51-baseline/2026-11-16')
 )
-OUT = Path(
-	os.environ.get('REST_FIDELITY', '/Volumes/wd/cache/spatial-maker/research/51-rest-fidelity/2026-11-16')
-)
+CAPTURE = existing_dir('REST_FIDELITY')
 GATE_DELTA = 24
 GATE_SHARE = 0.5
 
@@ -57,7 +57,7 @@ def heat(d):
 	)
 
 
-def crop_sheet(stem, plain, images):
+def crop_sheet(dest, stem, plain, images):
 	residual = delta(images['composite/t1024-none'], plain) > GATE_DELTA
 	x, y = densest(residual.astype(np.int64))
 	tiles = [plain[y : y + CROP, x : x + CROP]]
@@ -65,9 +65,10 @@ def crop_sheet(stem, plain, images):
 		image = images[key][y : y + CROP, x : x + CROP]
 		tiles += [image, heat(delta(image, tiles[0]))]
 	row = np.concatenate(tiles, 1)
-	Image.fromarray(row).resize((row.shape[1] * 2, row.shape[0] * 2), Image.Resampling.NEAREST).save(
-		OUT / 'sheets' / f'{stem}-rest-crops.png'
-	)
+	with create(dest, f'sheets/{stem}-rest-crops.png') as file:
+		Image.fromarray(row).resize((row.shape[1] * 2, row.shape[0] * 2), Image.Resampling.NEAREST).save(
+			file, format='PNG'
+		)
 	return {
 		'x': x,
 		'y': y,
@@ -76,8 +77,8 @@ def crop_sheet(stem, plain, images):
 	}
 
 
-def photo_scores(stem, capture):
-	base = OUT / stem
+def photo_scores(dest, stem, capture):
+	base = CAPTURE / stem
 	ref = {path.stem: rgb(path) for path in (base / 'ref').glob('*.png')}
 	plain = ref['plain']
 	assert np.array_equal(plain, rgb(BASELINE / 'renders' / stem / 'reference.png')), (
@@ -107,12 +108,12 @@ def photo_scores(stem, capture):
 					'vs_plain': score(image, plain),
 					'vs_framed': score(image, framed),
 				}
-	return {'controls': controls, 'cells': cells, 'crop': crop_sheet(stem, plain, images)}
+	return {'controls': controls, 'cells': cells, 'crop': crop_sheet(dest, stem, plain, images)}
 
 
 def main():
-	capture = json.loads((OUT / 'capture.json').read_text())
-	(OUT / 'sheets').mkdir(exist_ok=True)
+	capture = json.loads((CAPTURE / 'capture.json').read_text())
+	dest = fresh_dir('REST_ANALYSIS')
 	results = {
 		'renderer_sha256': capture['libHashes'],
 		'pinned': capture['pinned'],
@@ -120,8 +121,9 @@ def main():
 		'photos': {},
 	}
 	for photo in capture['photos']:
-		results['photos'][photo['stem']] = photo_scores(photo['stem'], capture)
-	(OUT / 'results.json').write_text(json.dumps(results, indent='\t') + '\n')
+		results['photos'][photo['stem']] = photo_scores(dest, photo['stem'], capture)
+	with create(dest, 'results.json') as file:
+		file.write((json.dumps(results, indent='\t') + '\n').encode())
 	keys = list(next(iter(results['photos'].values()))['cells'])
 	stems = list(results['photos'])
 	print('vs_plain over_24_pct / vs_framed over_24_pct')
